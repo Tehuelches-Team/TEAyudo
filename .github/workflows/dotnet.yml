@@ -1,23 +1,26 @@
-name: Pull Request Workflow
-on: pull_request
+name: .NET 7 Pull Request CI/CD
+
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
+    name: Build and test
     runs-on: ubuntu-latest
-
     steps:
       - name: Check branch
         run: |
-          branch=$(echo "${GITHUB_HEAD_REF}" | cut -d / -f 3)
-          if [ "${branch}" != "DEV" ]; then
-            echo "El pull request debe estar en la rama DEV"
+          if [[ "${GITHUB_REF}" != "refs/heads/DEV" ]]; then
+            echo "Pull request must be on branch DEV"
             exit 1
           fi
 
-      - name: Setup .NET 7
+      - name: Set up .NET 7
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 7.0.0
+          dotnet-version: 7.0.0-preview.1
 
       - name: Restore NuGet packages
         run: dotnet restore
@@ -29,15 +32,15 @@ jobs:
         run: dotnet test
 
       - name: Check reviewer
-        run: |
-          owner=$(echo "${GITHUB_ACTOR}" | cut -d / -f 1)
-          if [ "${owner}" != "OWNER" ]; then
-            echo "Solo los propietarios de la organización pueden aceptar este pull request"
-            exit 1
-          fi
+        uses: actions/github-checks@v2
+        with:
+          ref: ${{ github.head_ref }}
+          reviewer-type: owner
 
-      - name: Merge pull request
-        if: ${{ success }}
+      - name: Merge pull request if reviewer is an owner
+        if: |
+          ${{ steps.check-reviewer.outputs.reviewer-type == 'owner' }} &&
+          ${{ steps.build.outputs.build-status == 'SUCCESS' }}
         run: |
-          git merge --ff-only "${GITHUB_HEAD_REF}"
-          git push
+          echo "Merging pull request"
+          git merge --ff-only ${{ github.head_ref }}
