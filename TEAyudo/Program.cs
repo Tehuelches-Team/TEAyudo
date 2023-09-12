@@ -1,5 +1,7 @@
 using Application.Interfaces;
-using Application.UseCase.Tutores.GetAll;
+using Application.UseCase.Tutores;
+using Domain;
+using Infraestructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +14,7 @@ builder.Services.AddSwaggerGen();
 
 //     CUSTOM
 
-builder.Services.AddTransient<IServiceGetAll, ServiceGetAll>();
-
+builder.Services.AddScoped<ITutorServices, TutorServices>();
 
 
 

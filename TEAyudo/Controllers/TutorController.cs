@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces;
-using Application.UseCase.Tutores.GetAll;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +30,7 @@ namespace TEAyudo.Controllers
             try
             {
                 // Crear primero el usuario
-                var usuario = new Usuario { Nombre = "PEDRO" /* otros campos comunes */ };
+                var usuario = new Usuario { Nombre = "pedro" /* otros campos comunes */ };
                 _context.Usuarios.Add(usuario);
                 await _context.SaveChangesAsync();
 

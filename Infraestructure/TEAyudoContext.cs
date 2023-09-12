@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Infraestructure;
 
 namespace TEAyudo;
 public class TEAyudoContext :DbContext
@@ -16,7 +17,6 @@ public class TEAyudoContext :DbContext
     public DbSet<AcompananteEspecialidad> AcompanantesEspecialidades { get; set; }
     public DbSet<AcompananteEspecialidad> AcompanantesObraSocial { get; set; }
     public DbSet<DisponibilidadSemanal> DisponibilidadesSemanales { get; set; }
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -69,7 +69,6 @@ public class TEAyudoContext :DbContext
                 .OnDelete(DeleteBehavior.Restrict); // Configura ON DELETE NO ACTION
         });
 
-
         modelBuilder.Entity<Acompanante>(entity =>
         {
             entity.ToTable("Acompanante");
@@ -80,46 +79,30 @@ public class TEAyudoContext :DbContext
                 .HasForeignKey<Acompanante>(a => a.UsuarioId);
 
         });
+        modelBuilder.Entity<Acompanante>(entity =>
+        {
+            entity.HasOne(a => a.Usuario)
+            .WithOne()
+            .HasForeignKey<Acompanante>(a => a.UsuarioId);
 
-        //      RELACION UNO A UNO
-        //modelBuilder.Entity<ENTIDAD1>()
-        //    .HasOne(u => u.ENTIDAD2)
-        //    .WithOne(p => p.ENTIDAD1)
-        //    .HasForeignKey<ENTIDAD1>(p => p.ENTIDAD1_ID);
-
-
-        modelBuilder.Entity<Acompanante>()
-            .HasMany(a => a.Especialidades)
+        });
+        modelBuilder.Entity<Acompanante>(entity =>
+        {
+            entity.HasMany(a => a.Especialidades)
             .WithMany(e => e.Acompanantes)
             .UsingEntity<AcompananteEspecialidad>(
                 j => j.HasOne(ae => ae.Especialidad).WithMany().OnDelete(DeleteBehavior.Restrict),
-                j => j.HasOne(ae => ae.Acompanante).WithMany().OnDelete(DeleteBehavior.Restrict)
-            );
+                j => j.HasOne(ae => ae.Acompanante).WithMany().OnDelete(DeleteBehavior.Restrict));
+         });
 
-        //RELACION UNO A MUCHOS
-        //modelBuilder.Entity<ENTIDAD1>()
-        //.HasMany(a => a.ENTIDAD2S)
-        //.WithOne(l => l.ENTIDAD1)
-        //.HasForeignKey(l => l.ENTIDAD1Id);
-
-        //      RELACION UNO A MUCHOS
-        //      Un acompañante puede tener mas de una disponibilidad horaria
-
-
-        //RELACION MUCHOS A MUCHOS
-        //modelBuilder.Entity<ENTIDAD1>()
-        //    .HasMany(e => e.ENTIDAD2S)
-        //    .WithMany(c => c.ENTIDAD2S)
-        //    .UsingEntity<ENTIDAD1ENTIDAD2>(
-        //j => j.HasOne(ic => ic.ENTIDAD2).WithMany(),
-        //j => j.HasOne(ic => ic.ENTIDAD1S).WithMany()
-
-        modelBuilder.Entity<Acompanante>()
-            .HasMany(a => a.DisponibilidadesSemanales)
+        modelBuilder.Entity<Acompanante>(entity =>
+        {
+            entity.HasMany(a => a.DisponibilidadesSemanales)
             .WithOne(ds => ds.Acompanante)
             .HasForeignKey(ds => ds.AcompananteId)
             .OnDelete(DeleteBehavior.Restrict);
-      
+        });
+
         modelBuilder.Entity<Acompanante>()
             .HasMany(a => a.Especialidades)
             .WithMany(e => e.Acompanantes)
@@ -139,26 +122,7 @@ public class TEAyudoContext :DbContext
             .WithMany(a => a.Propuestas)
             .HasForeignKey(p => p.AcompananteId);
 
-
-
-        //RELACION UNO A MUCHOS
-        //modelBuilder.Entity<ENTIDAD1>()
-        //.HasMany(a => a.ENTIDAD2S)
-        //.WithOne(l => l.ENTIDAD1)
-        //.HasForeignKey(l => l.ENTIDAD1Id);
-
-        //      RELACION UNO A UNO
-        //modelBuilder.Entity<ENTIDAD1>()
-        //    .HasOne(u => u.ENTIDAD2)
-        //    .WithOne(p => p.ENTIDAD1)
-        //    .HasForeignKey<ENTIDAD1>(p => p.ENTIDAD1_ID);
-
-
-
-
-
     }
-
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
