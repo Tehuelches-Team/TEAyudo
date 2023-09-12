@@ -22,7 +22,7 @@ namespace Infraestructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.Acompanante", b =>
+            modelBuilder.Entity("TEAyudo.Acompanante", b =>
                 {
                     b.Property<int>("AcompananteId")
                         .ValueGeneratedOnAdd()
@@ -69,10 +69,10 @@ namespace Infraestructure.Migrations
                     b.HasIndex("UsuarioId")
                         .IsUnique();
 
-                    b.ToTable("Acompanante", (string)null);
+                    b.ToTable("Acompanantes", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.AcompananteEspecialidad", b =>
+            modelBuilder.Entity("TEAyudo.AcompananteEspecialidad", b =>
                 {
                     b.Property<int>("AcompananteId")
                         .HasColumnType("int");
@@ -84,10 +84,10 @@ namespace Infraestructure.Migrations
 
                     b.HasIndex("EspecialidadId");
 
-                    b.ToTable("AcompananteEspecialidad");
+                    b.ToTable("AcompananteEspecialidad", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.AcompananteObraSocial", b =>
+            modelBuilder.Entity("TEAyudo.AcompananteObraSocial", b =>
                 {
                     b.Property<int>("AcompananteId")
                         .HasColumnType("int");
@@ -99,10 +99,10 @@ namespace Infraestructure.Migrations
 
                     b.HasIndex("ObrasocialId");
 
-                    b.ToTable("AcompananteObraSocial");
+                    b.ToTable("AcompananteObraSocial", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.DisponibilidadSemanal", b =>
+            modelBuilder.Entity("TEAyudo.DisponibilidadSemanal", b =>
                 {
                     b.Property<int>("DisponibilidadSemanalId")
                         .ValueGeneratedOnAdd()
@@ -126,10 +126,10 @@ namespace Infraestructure.Migrations
 
                     b.HasIndex("AcompananteId");
 
-                    b.ToTable("DisponibilidadesSemanales");
+                    b.ToTable("DisponibilidadSemanal", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Especialidad", b =>
+            modelBuilder.Entity("TEAyudo.Especialidad", b =>
                 {
                     b.Property<int>("EspecialidadId")
                         .ValueGeneratedOnAdd()
@@ -143,10 +143,10 @@ namespace Infraestructure.Migrations
 
                     b.HasKey("EspecialidadId");
 
-                    b.ToTable("Especialidades");
+                    b.ToTable("Especialidades", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.EstadoPropuesta", b =>
+            modelBuilder.Entity("TEAyudo.EstadoPropuesta", b =>
                 {
                     b.Property<int>("EstadoPropuestaId")
                         .ValueGeneratedOnAdd()
@@ -160,13 +160,16 @@ namespace Infraestructure.Migrations
 
                     b.HasKey("EstadoPropuestaId");
 
-                    b.ToTable("EstadoPropuestas");
+                    b.ToTable("EstadoPostulaciones", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.EstadoUsuario", b =>
+            modelBuilder.Entity("TEAyudo.EstadoUsuario", b =>
                 {
                     b.Property<int>("EstadoUsuarioId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EstadoUsuarioId"));
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -177,7 +180,7 @@ namespace Infraestructure.Migrations
                     b.ToTable("EstadoUsuario", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.ObraSocial", b =>
+            modelBuilder.Entity("TEAyudo.ObraSocial", b =>
                 {
                     b.Property<int>("ObraSocialId")
                         .ValueGeneratedOnAdd()
@@ -195,10 +198,10 @@ namespace Infraestructure.Migrations
 
                     b.HasKey("ObraSocialId");
 
-                    b.ToTable("ObrasSociales");
+                    b.ToTable("ObrasSociales", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Paciente", b =>
+            modelBuilder.Entity("TEAyudo.Paciente", b =>
                 {
                     b.Property<int>("PacienteId")
                         .ValueGeneratedOnAdd()
@@ -232,10 +235,10 @@ namespace Infraestructure.Migrations
 
                     b.HasIndex("TutorId");
 
-                    b.ToTable("Pacientes");
+                    b.ToTable("Pacientes", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Propuesta", b =>
+            modelBuilder.Entity("TEAyudo.Propuesta", b =>
                 {
                     b.Property<int>("PropuestaId")
                         .ValueGeneratedOnAdd()
@@ -270,7 +273,7 @@ namespace Infraestructure.Migrations
                     b.ToTable("Propuesta", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Tutor", b =>
+            modelBuilder.Entity("TEAyudo.Tutor", b =>
                 {
                     b.Property<int>("TutorId")
                         .ValueGeneratedOnAdd()
@@ -290,13 +293,16 @@ namespace Infraestructure.Migrations
 
                     b.HasKey("TutorId");
 
+                    b.HasIndex("EstadoUsuarioId")
+                        .IsUnique();
+
                     b.HasIndex("UsuarioId")
                         .IsUnique();
 
-                    b.ToTable("Tutor", (string)null);
+                    b.ToTable("Tutores", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Usuario", b =>
+            modelBuilder.Entity("TEAyudo.Usuario", b =>
                 {
                     b.Property<int>("UsuarioId")
                         .ValueGeneratedOnAdd()
@@ -333,20 +339,20 @@ namespace Infraestructure.Migrations
 
                     b.HasKey("UsuarioId");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("Usuario", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Acompanante", b =>
+            modelBuilder.Entity("TEAyudo.Acompanante", b =>
                 {
-                    b.HasOne("Domain.Entities.EstadoUsuario", "EstadoUsuario")
+                    b.HasOne("TEAyudo.EstadoUsuario", "EstadoUsuario")
                         .WithOne("Acompanante")
-                        .HasForeignKey("Domain.Entities.Acompanante", "EstadoUsuarioId")
+                        .HasForeignKey("TEAyudo.Acompanante", "EstadoUsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Usuario", "Usuario")
+                    b.HasOne("TEAyudo.Usuario", "Usuario")
                         .WithOne()
-                        .HasForeignKey("Domain.Entities.Acompanante", "UsuarioId")
+                        .HasForeignKey("TEAyudo.Acompanante", "UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -355,15 +361,15 @@ namespace Infraestructure.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("Domain.Entities.AcompananteEspecialidad", b =>
+            modelBuilder.Entity("TEAyudo.AcompananteEspecialidad", b =>
                 {
-                    b.HasOne("Domain.Entities.Acompanante", "Acompanante")
+                    b.HasOne("TEAyudo.Acompanante", "Acompanante")
                         .WithMany()
                         .HasForeignKey("AcompananteId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Especialidad", "Especialidad")
+                    b.HasOne("TEAyudo.Especialidad", "Especialidad")
                         .WithMany()
                         .HasForeignKey("EspecialidadId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -374,15 +380,15 @@ namespace Infraestructure.Migrations
                     b.Navigation("Especialidad");
                 });
 
-            modelBuilder.Entity("Domain.Entities.AcompananteObraSocial", b =>
+            modelBuilder.Entity("TEAyudo.AcompananteObraSocial", b =>
                 {
-                    b.HasOne("Domain.Entities.Acompanante", "Acompanante")
+                    b.HasOne("TEAyudo.Acompanante", "Acompanante")
                         .WithMany()
                         .HasForeignKey("AcompananteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.ObraSocial", "ObraSocial")
+                    b.HasOne("TEAyudo.ObraSocial", "ObraSocial")
                         .WithMany()
                         .HasForeignKey("ObrasocialId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -393,9 +399,9 @@ namespace Infraestructure.Migrations
                     b.Navigation("ObraSocial");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DisponibilidadSemanal", b =>
+            modelBuilder.Entity("TEAyudo.DisponibilidadSemanal", b =>
                 {
-                    b.HasOne("Domain.Entities.Acompanante", "Acompanante")
+                    b.HasOne("TEAyudo.Acompanante", "Acompanante")
                         .WithMany("DisponibilidadesSemanales")
                         .HasForeignKey("AcompananteId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -404,20 +410,9 @@ namespace Infraestructure.Migrations
                     b.Navigation("Acompanante");
                 });
 
-            modelBuilder.Entity("Domain.Entities.EstadoUsuario", b =>
+            modelBuilder.Entity("TEAyudo.Paciente", b =>
                 {
-                    b.HasOne("Domain.Entities.Tutor", "Tutor")
-                        .WithOne("EstadoUsuario")
-                        .HasForeignKey("Domain.Entities.EstadoUsuario", "EstadoUsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tutor");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Paciente", b =>
-                {
-                    b.HasOne("Domain.Entities.Tutor", "Tutor")
+                    b.HasOne("TEAyudo.Tutor", "Tutor")
                         .WithMany("Pacientes")
                         .HasForeignKey("TutorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -426,21 +421,21 @@ namespace Infraestructure.Migrations
                     b.Navigation("Tutor");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Propuesta", b =>
+            modelBuilder.Entity("TEAyudo.Propuesta", b =>
                 {
-                    b.HasOne("Domain.Entities.Acompanante", "Acompanante")
+                    b.HasOne("TEAyudo.Acompanante", "Acompanante")
                         .WithMany("Propuestas")
                         .HasForeignKey("AcompananteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.EstadoPropuesta", "EstadoPropuesta")
+                    b.HasOne("TEAyudo.EstadoPropuesta", "EstadoPropuesta")
                         .WithMany("Propuestas")
                         .HasForeignKey("EstadoPropuestaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Tutor", "Tutor")
+                    b.HasOne("TEAyudo.Tutor", "Tutor")
                         .WithMany("Propuestas")
                         .HasForeignKey("TutorId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -453,40 +448,48 @@ namespace Infraestructure.Migrations
                     b.Navigation("Tutor");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Tutor", b =>
+            modelBuilder.Entity("TEAyudo.Tutor", b =>
                 {
-                    b.HasOne("Domain.Entities.Usuario", "Usuario")
-                        .WithOne()
-                        .HasForeignKey("Domain.Entities.Tutor", "UsuarioId")
+                    b.HasOne("TEAyudo.EstadoUsuario", "EstadoUsuario")
+                        .WithOne("Tutor")
+                        .HasForeignKey("TEAyudo.Tutor", "EstadoUsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("TEAyudo.Usuario", "Usuario")
+                        .WithOne()
+                        .HasForeignKey("TEAyudo.Tutor", "UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EstadoUsuario");
 
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Acompanante", b =>
+            modelBuilder.Entity("TEAyudo.Acompanante", b =>
                 {
                     b.Navigation("DisponibilidadesSemanales");
 
                     b.Navigation("Propuestas");
                 });
 
-            modelBuilder.Entity("Domain.Entities.EstadoPropuesta", b =>
+            modelBuilder.Entity("TEAyudo.EstadoPropuesta", b =>
                 {
                     b.Navigation("Propuestas");
                 });
 
-            modelBuilder.Entity("Domain.Entities.EstadoUsuario", b =>
+            modelBuilder.Entity("TEAyudo.EstadoUsuario", b =>
                 {
                     b.Navigation("Acompanante")
                         .IsRequired();
+
+                    b.Navigation("Tutor")
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Entities.Tutor", b =>
+            modelBuilder.Entity("TEAyudo.Tutor", b =>
                 {
-                    b.Navigation("EstadoUsuario")
-                        .IsRequired();
-
                     b.Navigation("Pacientes");
 
                     b.Navigation("Propuestas");

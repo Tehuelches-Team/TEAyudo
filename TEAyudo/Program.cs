@@ -1,5 +1,4 @@
-using Application.Interfaces;
-using Application.UseCase.Tutores;
+
 using Domain;
 using Infraestructure;
 
@@ -14,7 +13,6 @@ builder.Services.AddSwaggerGen();
 
 //     CUSTOM
 
-builder.Services.AddScoped<ITutorServices, TutorServices>();
 
 
 

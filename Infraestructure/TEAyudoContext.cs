@@ -1,6 +1,8 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Infraestructure;
+using TEAyudo;
+using Microsoft.Extensions.Options;
 
 namespace TEAyudo;
 public class TEAyudoContext :DbContext
@@ -126,7 +128,7 @@ public class TEAyudoContext :DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=localhost;Database=TEAyudo;Trusted_Connection=True;TrustServerCertificate=True");
+        optionsBuilder.UseSqlServer("Server=localhost;Database=TEAyudo;Trusted_Connection=True;TrustServerCertificate=True", b => b.MigrationsAssembly("TEAyudo"));
     }
 
 }

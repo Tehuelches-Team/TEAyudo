@@ -340,8 +340,7 @@ namespace Infraestructure.Migrations
                 {
                                     { "OSDE", "Obra Social De Empresarios" },
                                     { "IOMA", "I O M A" }
-        // Agrega más filas según sea necesario
-    });
+                });
 
             migrationBuilder.InsertData(
                table: "Usuario",
@@ -374,6 +373,31 @@ namespace Infraestructure.Migrations
                                         "/user/img/marcelozona.jpg" ,
                                         "Paseo Colon 2500" ,
                                         "1980/10/01"});
+            migrationBuilder.InsertData(
+                table: "EstadoUsuario", // Nombre de la tabla
+                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[]{ "Pendinte de validar"});
+
+            migrationBuilder.InsertData(
+                table: "EstadoUsuario", // Nombre de la tabla
+                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[]{ "Validado"});
+
+            migrationBuilder.InsertData(
+                table: "EstadoUsuario", // Nombre de la tabla
+                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[]{ "Bloqueado" });
+
+            migrationBuilder.InsertData(
+                table: "Especialidades", // Nombre de la tabla
+                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[]{ "Acompañante Terapeutico"});
+
+            migrationBuilder.InsertData(
+                table: "Especialidades", // Nombre de la tabla
+                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[]{ "Acompañante Escolar" });
+
             //migrationBuilder.InsertData(
             //   table: "Acompanantes",
             //   columns: new[] { "ZonaLaboral", "EstadoUsuarioId", "ObraSocialId", "Contacto", "Documentacion", "EspecialidadId", "Experiencia", "UsuarioId", "DisponibilidadSemanalId" },
