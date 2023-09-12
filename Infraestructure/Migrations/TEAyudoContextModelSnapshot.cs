@@ -69,7 +69,7 @@ namespace Infraestructure.Migrations
                     b.HasIndex("UsuarioId")
                         .IsUnique();
 
-                    b.ToTable("Acompanantes");
+                    b.ToTable("Acompanantes", (string)null);
                 });
 
             modelBuilder.Entity("TEAyudo.AcompananteEspecialidad", b =>
@@ -84,7 +84,7 @@ namespace Infraestructure.Migrations
 
                     b.HasIndex("EspecialidadId");
 
-                    b.ToTable("AcompananteEspecialidad");
+                    b.ToTable("AcompananteEspecialidad", (string)null);
                 });
 
             modelBuilder.Entity("TEAyudo.AcompananteObraSocial", b =>
@@ -99,7 +99,7 @@ namespace Infraestructure.Migrations
 
                     b.HasIndex("ObrasocialId");
 
-                    b.ToTable("AcompananteObraSocial");
+                    b.ToTable("AcompananteObraSocial", (string)null);
                 });
 
             modelBuilder.Entity("TEAyudo.DisponibilidadSemanal", b =>
@@ -126,7 +126,7 @@ namespace Infraestructure.Migrations
 
                     b.HasIndex("AcompananteId");
 
-                    b.ToTable("DisponibilidadSemanal");
+                    b.ToTable("DisponibilidadSemanal", (string)null);
                 });
 
             modelBuilder.Entity("TEAyudo.Especialidad", b =>
@@ -143,7 +143,7 @@ namespace Infraestructure.Migrations
 
                     b.HasKey("EspecialidadId");
 
-                    b.ToTable("Especialidades");
+                    b.ToTable("Especialidades", (string)null);
                 });
 
             modelBuilder.Entity("TEAyudo.EstadoPropuesta", b =>
@@ -160,7 +160,7 @@ namespace Infraestructure.Migrations
 
                     b.HasKey("EstadoPropuestaId");
 
-                    b.ToTable("EstadoPostulaciones");
+                    b.ToTable("EstadoPostulaciones", (string)null);
                 });
 
             modelBuilder.Entity("TEAyudo.EstadoUsuario", b =>
@@ -177,7 +177,7 @@ namespace Infraestructure.Migrations
 
                     b.HasKey("EstadoUsuarioId");
 
-                    b.ToTable("EstadoUsuario");
+                    b.ToTable("EstadoUsuario", (string)null);
                 });
 
             modelBuilder.Entity("TEAyudo.ObraSocial", b =>
@@ -198,7 +198,7 @@ namespace Infraestructure.Migrations
 
                     b.HasKey("ObraSocialId");
 
-                    b.ToTable("ObrasSociales");
+                    b.ToTable("ObrasSociales", (string)null);
                 });
 
             modelBuilder.Entity("TEAyudo.Paciente", b =>
@@ -235,7 +235,7 @@ namespace Infraestructure.Migrations
 
                     b.HasIndex("TutorId");
 
-                    b.ToTable("Pacientes");
+                    b.ToTable("Pacientes", (string)null);
                 });
 
             modelBuilder.Entity("TEAyudo.Propuesta", b =>
@@ -270,7 +270,7 @@ namespace Infraestructure.Migrations
 
                     b.HasIndex("TutorId");
 
-                    b.ToTable("Propuesta");
+                    b.ToTable("Propuesta", (string)null);
                 });
 
             modelBuilder.Entity("TEAyudo.Tutor", b =>
@@ -299,7 +299,7 @@ namespace Infraestructure.Migrations
                     b.HasIndex("UsuarioId")
                         .IsUnique();
 
-                    b.ToTable("Tutores");
+                    b.ToTable("Tutores", (string)null);
                 });
 
             modelBuilder.Entity("TEAyudo.Usuario", b =>
@@ -339,7 +339,7 @@ namespace Infraestructure.Migrations
 
                     b.HasKey("UsuarioId");
 
-                    b.ToTable("Usuario");
+                    b.ToTable("Usuario", (string)null);
                 });
 
             modelBuilder.Entity("TEAyudo.Acompanante", b =>

@@ -12,27 +12,28 @@ namespace TEAyudo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EspecialidadsController : ControllerBase
+    public class EspecialidadesController : ControllerBase
     {
         private readonly TEAyudoContext _context;
 
-        public EspecialidadsController(TEAyudoContext context)
+        public EspecialidadesController(TEAyudoContext context)
         {
             _context = context;
         }
 
-        // GET: api/Especialidads
+        // GET: api/Especialidades
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Especialidad>>> GetEspecialidades()
         {
           if (_context.Especialidades == null)
           {
+                //Devuelve un 404 NotFound
               return NotFound();
           }
             return await _context.Especialidades.ToListAsync();
         }
 
-        // GET: api/Especialidads/5
+        // GET: api/Especialidades/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Especialidad>> GetEspecialidad(int id)
         {
@@ -50,7 +51,7 @@ namespace TEAyudo.Controllers
             return especialidad;
         }
 
-        // PUT: api/Especialidads/5
+        // PUT: api/Especialidades/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEspecialidad(int id, Especialidad especialidad)
@@ -81,7 +82,7 @@ namespace TEAyudo.Controllers
             return NoContent();
         }
 
-        // POST: api/Especialidads
+        // POST: api/Especialidades
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Especialidad>> PostEspecialidad(Especialidad especialidad)
@@ -96,7 +97,7 @@ namespace TEAyudo.Controllers
             return CreatedAtAction("GetEspecialidad", new { id = especialidad.EspecialidadId }, especialidad);
         }
 
-        // DELETE: api/Especialidads/5
+        // DELETE: api/Especialidades/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEspecialidad(int id)
         {

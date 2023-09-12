@@ -330,6 +330,106 @@ namespace Infraestructure.Migrations
                 table: "Tutores",
                 column: "UsuarioId",
                 unique: true);
+
+            //DATA
+
+            migrationBuilder.InsertData(
+                table: "ObrasSociales", // Nombre de la tabla
+                columns: new[] { "Nombre", "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[,]
+                {
+                                    { "OSDE", "Obra Social De Empresarios" },
+                                    { "IOMA", "I O M A" }
+                });
+
+            migrationBuilder.InsertData(
+               table: "Usuario",
+               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechanNacimiento" },
+               values: new object[] {  "Ariel",
+                                        "Ortiz",
+                                        "aortiz@yopmail.com",
+                                        "1q2w3e4r" ,
+                                        "/user/img/arielortiz.jpg" ,
+                                        "Montevideo 600" ,
+                                        "1980/10/01"});
+
+            migrationBuilder.InsertData(
+               table: "Usuario",
+               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechanNacimiento" },
+               values: new object[] {  "Pablo",
+                                        "Morel",
+                                        "pmorel@yopmail.com",
+                                        "1q2w3e4r" ,
+                                        "/user/img/pablomorel.jpg" ,
+                                        "Reconquista 2500" ,
+                                        "1980/10/01"});
+            migrationBuilder.InsertData(
+               table: "Usuario",
+               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechanNacimiento" },
+               values: new object[] {  "Marcelo",
+                                        "Zona",
+                                        "mzona@yopmail.com",
+                                        "1q2w3e4r" ,
+                                        "/user/img/marcelozona.jpg" ,
+                                        "Paseo Colon 2500" ,
+                                        "1980/10/01"});
+            migrationBuilder.InsertData(
+                table: "EstadoUsuario", // Nombre de la tabla
+                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[]{ "Pendinte de validar"});
+
+            migrationBuilder.InsertData(
+                table: "EstadoUsuario", // Nombre de la tabla
+                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[]{ "Validado"});
+
+            migrationBuilder.InsertData(
+                table: "EstadoUsuario", // Nombre de la tabla
+                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[]{ "Bloqueado" });
+
+            migrationBuilder.InsertData(
+                table: "Especialidades", // Nombre de la tabla
+                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[]{ "Acompañante Terapeutico"});
+
+            migrationBuilder.InsertData(
+                table: "Especialidades", // Nombre de la tabla
+                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[]{ "Acompañante Escolar" });
+
+            //migrationBuilder.InsertData(
+            //   table: "Acompanantes",
+            //   columns: new[] { "ZonaLaboral", "EstadoUsuarioId", "ObraSocialId", "Contacto", "Documentacion", "EspecialidadId", "Experiencia", "UsuarioId", "DisponibilidadSemanalId" },
+            //   values: new object[] {  "Florencio Varela",
+            //                            "1",
+            //                            "1",
+            //                            "1550112233" ,
+            //                            "/user/doc/cv.docx" ,
+            //                            "1" ,
+            //                            "string",
+            //                            "1",
+            //                            "1" });
+            //migrationBuilder.InsertData(
+            //   table: "Acompanantes",
+            //   columns: new[] { "ZonaLaboral", "EstadoUsuarioId", "ObraSocialId", "Contacto", "Documentacion", "EspecialidadId", "Experiencia", "UsuarioId", "DisponibilidadSemanalId" },
+            //   values: new object[] {  "Florencio Varela",
+            //                            "2",
+            //                            "1",
+            //                            "1550223344" ,
+            //                            "/user/doc/cv.docx" ,
+            //                            "1" ,
+            //                            "string",
+            //                            "2",
+            //                            "1" });
+            //migrationBuilder.InsertData(
+            //   table: "Tutores",
+            //   columns: new[] { "CertUniDisc", "EstadoUsuarioId", "UsuarioId" },
+            //   values: new object[] { "/user/doc/cud.pdf",
+            //       "1",
+            //       "3"});
+
+
         }
 
         /// <inheritdoc />

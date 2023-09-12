@@ -1,6 +1,9 @@
 
 using Domain;
 using Infraestructure;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+using TEAyudo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //     CUSTOM
+
+builder.Services.AddDbContext<TEAyudoContext>(options =>
+{
+    options.UseSqlServer("Server=localhost;Database=TEAyudo;Trusted_Connection=True;TrustServerCertificate=True");
+});
 
 
 

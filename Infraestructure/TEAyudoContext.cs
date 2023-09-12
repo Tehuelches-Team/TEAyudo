@@ -20,6 +20,9 @@ public class TEAyudoContext :DbContext
     public DbSet<AcompananteEspecialidad> AcompanantesObraSocial { get; set; }
     public DbSet<DisponibilidadSemanal> DisponibilidadesSemanales { get; set; }
 
+    public TEAyudoContext(DbContextOptions<TEAyudoContext> options) : base(options)
+    {
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         
