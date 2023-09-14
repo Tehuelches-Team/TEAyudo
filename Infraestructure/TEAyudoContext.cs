@@ -1,6 +1,5 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Infraestructure;
 using TEAyudo;
 using Microsoft.Extensions.Options;
 
@@ -81,7 +80,8 @@ public class TEAyudoContext :DbContext
             entity.Property(a => a.AcompananteId);
             entity.HasOne(a => a.Usuario)
                 .WithOne()
-                .HasForeignKey<Acompanante>(a => a.UsuarioId);
+                .HasForeignKey<Acompanante>(a => a.UsuarioId)
+                .OnDelete(DeleteBehavior.Restrict);
 
         });
         modelBuilder.Entity<Acompanante>(entity =>
@@ -127,12 +127,28 @@ public class TEAyudoContext :DbContext
             .WithMany(a => a.Propuestas)
             .HasForeignKey(p => p.AcompananteId);
 
-    }
+        modelBuilder.Entity<Paciente>(entity =>
+        { 
+            entity.ToTable("Paciente"); 
+            entity.HasKey(p => p.PacienteId);
+            entity.Property(p => p.PacienteId);
+            entity.HasOne(p => p.Tutor)
+            .WithMany(t => t.Pacientes) 
+            .HasForeignKey(p => p.TutorId);
+        });
+
+
+
+
+        }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=localhost;Database=TEAyudo;Trusted_Connection=True;TrustServerCertificate=True", b => b.MigrationsAssembly("TEAyudo"));
+        optionsBuilder.UseSqlServer("Server=localhost;Database=TEAyudo;Trusted_Connection=True;TrustServerCertificate=True");
     }
 
 }
+
+
 
