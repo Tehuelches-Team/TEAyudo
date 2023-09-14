@@ -1,4 +1,4 @@
-﻿namespace TEAyudo
+﻿namespace Domain.Entities
 {
     public class Especialidad
     {

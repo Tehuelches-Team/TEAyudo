@@ -1,15 +1,15 @@
-﻿namespace TEAyudo;
+﻿namespace Domain.Entities;
 public class Acompanante
 {
-	public int AcompananteId { get; set; }
+    public int AcompananteId { get; set; }
     public int UsuarioId { get; set; }
     public string ZonaLaboral { get; set; }
     public int EstadoUsuarioId { get; set; }
     public int ObraSocialId { get; set; }
-	public string Contacto { get; set; }
-	public string Documentacion {get; set; }
-	public int EspecialidadId { get; set; }
-	public string Experiencia { get; set; }
+    public string Contacto { get; set; }
+    public string Documentacion { get; set; }
+    public int EspecialidadId { get; set; }
+    public string Experiencia { get; set; }
     public int DisponibilidadSemanalId { get; set; }
 
     public EstadoUsuario EstadoUsuario { get; set; }

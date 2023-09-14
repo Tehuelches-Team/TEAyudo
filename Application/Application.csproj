@@ -7,7 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UseCase\Tutores\GetAll\**" />
+    <EmbeddedResource Remove="UseCase\Tutores\GetAll\**" />
+    <None Remove="UseCase\Tutores\GetAll\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+    <Folder Include="UseCase\Tutores\" />
   </ItemGroup>
 
 </Project>
