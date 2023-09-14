@@ -398,6 +398,31 @@ namespace Infraestructure.Migrations
                 columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
                 values: new object[]{ "Acompañante Escolar" });
 
+            migrationBuilder.InsertData(
+               table: "Tutores",
+               columns: new[] { "CertUniDisc", "EstadoUsuarioId", "UsuarioId" },
+               values: new object[] { "/user/doc/cud.pdf",
+                   "1",
+                   "3"});
+            //migrationBuilder.InsertData(
+            //    table: "Paciente",
+            //    columns: new[] { "Nombre", "Apellido", "FechaNacimiento", "DiagnosticoTEA", "Sexo", "TutorId" },
+            //    values: new object[] {  "Andrés",
+            //                            "Zona",
+            //                            "2013/10/02",
+            //                            "/user/pac/img/andreszona.jpg" ,
+            //                            "M" ,
+            //                            "1"});
+            //migrationBuilder.InsertData(
+            //    table: "Paciente",
+            //    columns: new[] { "Nombre", "Apellido", "FechaNacimiento", "DiagnosticoTEA", "Sexo", "TutorId" },
+            //    values: new object[] {  "Mariano",
+            //                            "Zona",
+            //                            "2010/12/22",
+            //                            "/user/pac/img/marianozona.jpg" ,
+            //                            "M" ,
+            //                            "1"});
+
             //migrationBuilder.InsertData(
             //   table: "Acompanantes",
             //   columns: new[] { "ZonaLaboral", "EstadoUsuarioId", "ObraSocialId", "Contacto", "Documentacion", "EspecialidadId", "Experiencia", "UsuarioId", "DisponibilidadSemanalId" },
@@ -422,12 +447,7 @@ namespace Infraestructure.Migrations
             //                            "string",
             //                            "2",
             //                            "1" });
-            //migrationBuilder.InsertData(
-            //   table: "Tutores",
-            //   columns: new[] { "CertUniDisc", "EstadoUsuarioId", "UsuarioId" },
-            //   values: new object[] { "/user/doc/cud.pdf",
-            //       "1",
-            //       "3"});
+
 
 
         }

@@ -19,6 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TEAyudoContext>(options =>
 {
     options.UseSqlServer("Server=localhost;Database=TEAyudo;Trusted_Connection=True;TrustServerCertificate=True");
+
 });
 
 
