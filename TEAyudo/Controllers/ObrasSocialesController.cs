@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using TEAyudo;
 using Application.UseCase.ObrasSociales;
+using TEAyudo.DTO;
 
 namespace TEAyudo.Controllers
 {
@@ -80,15 +81,17 @@ namespace TEAyudo.Controllers
             return NoContent();
         }
 
-        // POST: api/ObraSocials
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/ObraSociales
+
         [HttpPost]
-        public async Task<ActionResult<ObraSocial>> PostObraSocial(ObraSocial obraSocial)
+        public async Task<ActionResult<ObraSocial>> PostObraSocial(ObraSocialDTO obraSocialDTO)
         {
-            if (_context.ObrasSociales == null)
+            var obraSocial = new ObraSocial
             {
-                return Problem("Entity set 'TEAyudoContext.ObrasSociales'  is null.");
-            }
+                Nombre = obraSocialDTO.Nombre,
+                Descripcion = obraSocialDTO.Descripcion
+            };
+
             _context.ObrasSociales.Add(obraSocial);
             await _context.SaveChangesAsync();
 
