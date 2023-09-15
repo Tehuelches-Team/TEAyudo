@@ -11,6 +11,8 @@
         public string FotoPerfil { get; set; }
         public string Domicilio { get; set; }
         public DateTime FechanNacimiento { get; set; }
+        public List<Tutor> Tutores { get; set; }
+        public ICollection<Acompanante> Acompanantes { get; set; }
     }
 
 }

@@ -400,28 +400,41 @@ namespace Infraestructure.Migrations
 
             migrationBuilder.InsertData(
                table: "Tutores",
-               columns: new[] { "CertUniDisc", "EstadoUsuarioId", "UsuarioId" },
-               values: new object[] { "/user/doc/cud.pdf",
-                   "1",
-                   "3"});
-            //migrationBuilder.InsertData(
-            //    table: "Paciente",
-            //    columns: new[] { "Nombre", "Apellido", "FechaNacimiento", "DiagnosticoTEA", "Sexo", "TutorId" },
-            //    values: new object[] {  "Andrés",
-            //                            "Zona",
-            //                            "2013/10/02",
-            //                            "/user/pac/img/andreszona.jpg" ,
-            //                            "M" ,
-            //                            "1"});
-            //migrationBuilder.InsertData(
-            //    table: "Paciente",
-            //    columns: new[] { "Nombre", "Apellido", "FechaNacimiento", "DiagnosticoTEA", "Sexo", "TutorId" },
-            //    values: new object[] {  "Mariano",
-            //                            "Zona",
-            //                            "2010/12/22",
-            //                            "/user/pac/img/marianozona.jpg" ,
-            //                            "M" ,
-            //                            "1"});
+               columns: new[] { "UsuarioId", "CertUniDisc", "EstadoUsuarioId" },
+               values: new object[] {  "1",
+                                        "/user/doc/cud_user1.docx" ,
+                                        "1"});
+            migrationBuilder.InsertData(
+               table: "Tutores",
+               columns: new[] { "UsuarioId", "CertUniDisc", "EstadoUsuarioId" },
+               values: new object[] {  "2",
+                                        "/user/doc/cud_user2.docx" ,
+                                        "2"});
+            migrationBuilder.InsertData(
+               table: "Tutores",
+               columns: new[] { "UsuarioId", "CertUniDisc", "EstadoUsuarioId" },
+               values: new object[] {  "3",
+                                        "/user/doc/cud_user3.docx" ,
+                                        "3"});
+
+            migrationBuilder.InsertData(
+                table: "Pacientes",
+                columns: new[] { "Nombre", "Apellido", "FechaNacimiento", "DiagnosticoTEA", "Sexo", "TutorId" },
+                values: new object[] {  "Andrés",
+                                        "Zona",
+                                        "2013/10/02",
+                                        "/user/pac/img/andreszona.jpg" ,
+                                        "M" ,
+                                        "1"});
+            migrationBuilder.InsertData(
+                table: "Pacientes",
+                columns: new[] { "Nombre", "Apellido", "FechaNacimiento", "DiagnosticoTEA", "Sexo", "TutorId" },
+                values: new object[] {  "Mariano",
+                                        "Zona",
+                                        "2010/12/22",
+                                        "/user/pac/img/marianozona.jpg" ,
+                                        "M" ,
+                                        "1"});
 
             //migrationBuilder.InsertData(
             //   table: "Acompanantes",
@@ -447,6 +460,8 @@ namespace Infraestructure.Migrations
             //                            "string",
             //                            "2",
             //                            "1" });
+
+
 
 
 
