@@ -25,11 +25,17 @@ namespace TEAyudo.Controllers
 
         // GET: api/ObrasSociales
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ObraSocial>>> GetObrasSociales()
+        public async Task<ActionResult<IEnumerable<ObraSocialDTO>>> GetObrasSociales()
         {
-            return await _context.ObrasSociales.ToListAsync();
-        }
+            var obrasSociales = await _context.ObrasSociales.ToListAsync();
+            var obraSocialDTOs = obrasSociales.Select(os => new ObraSocialDTO
+            {
+                Nombre = os.Nombre,
+                Descripcion = os.Descripcion
+            }).ToList();
 
+            return Ok(obraSocialDTOs);
+        }
 
 
         // GET: api/ObraSocialws/5
@@ -53,33 +59,38 @@ namespace TEAyudo.Controllers
         // PUT: api/ObraSocials/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutObraSocial(int id, ObraSocial obraSocial)
+        public async Task<IActionResult> PutObraSocial(int id, ObraSocialDTO obraSocialDTO)
         {
-            if (id != obraSocial.ObraSocialId)
+
+            var obraSocial = await _context.ObrasSociales.FindAsync(id);
+
+            if (obraSocial == null)
             {
-                return BadRequest();
+                return NotFound("Obra Social no encontrada.");
             }
 
-            _context.Entry(obraSocial).State = EntityState.Modified;
+            // Actualiza los campos de la entidad en función de los datos del DTO
+            obraSocial.Nombre = obraSocialDTO.Nombre;
+            obraSocial.Descripcion = obraSocialDTO.Descripcion;
 
             try
             {
                 await _context.SaveChangesAsync();
+                return NoContent(); // 204 No Content
             }
             catch (DbUpdateConcurrencyException)
             {
                 if (!ObraSocialExists(id))
                 {
-                    return NotFound();
+                    return NotFound("Obra Social no encontrada.");
                 }
                 else
                 {
                     throw;
                 }
             }
-
-            return NoContent();
         }
+
 
         // POST: api/ObraSociales
 
