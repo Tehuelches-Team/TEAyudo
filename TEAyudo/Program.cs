@@ -4,6 +4,7 @@ using Infraestructure;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using TEAyudo;
+using TEAyudo.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,13 +21,13 @@ builder.Services.AddDbContext<TEAyudoContext>(options =>
 {
     options.UseSqlServer("Server=localhost;Database=TEAyudo;Trusted_Connection=True;TrustServerCertificate=True");
 
+    //
 });
 
 
 
-
 //     CUSTOM
-
+builder.Services.AddScoped<TutorService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

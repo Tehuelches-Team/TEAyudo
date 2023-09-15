@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using TEAyudo;
+using TEAyudo.DTO;
 
 namespace TEAyudo.Controllers
 {
@@ -22,46 +23,56 @@ namespace TEAyudo.Controllers
         }
 
         // GET: api/Especialidades
+        // GET: api/Especialidades
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Especialidad>>> GetEspecialidades()
+        public async Task<ActionResult<IEnumerable<EspecialidadDTO>>> GetEspecialidades()
         {
-          if (_context.Especialidades == null)
-          {
-                //Devuelve un 404 NotFound
-              return NotFound();
-          }
-            return await _context.Especialidades.ToListAsync();
+            var especialidades = await _context.Especialidades.ToListAsync();
+
+            var especialidadesDTO = especialidades.Select(especialidad => new EspecialidadDTO
+            {
+                EspecialidadId = especialidad.EspecialidadId,
+                Descripcion = especialidad.Descripcion
+                // Mapea otras propiedades si es necesario
+            }).ToList();
+
+            return Ok(especialidadesDTO);
         }
 
-        // GET: api/Especialidades/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Especialidad>> GetEspecialidad(int id)
+        public async Task<ActionResult<EspecialidadDTO>> GetEspecialidad(int id)
         {
-          if (_context.Especialidades == null)
-          {
-              return NotFound();
-          }
             var especialidad = await _context.Especialidades.FindAsync(id);
 
             if (especialidad == null)
             {
-                return NotFound();
+                return NotFound("Especialidad no encontrada.");
             }
 
-            return especialidad;
+            var especialidadDTO = new EspecialidadDTO
+            {
+                Descripcion = especialidad.Descripcion
+                // Mapea otras propiedades si es necesario
+            };
+
+            return Ok(especialidadDTO);
         }
 
+
         // PUT: api/Especialidades/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEspecialidad(int id, Especialidad especialidad)
+        public async Task<IActionResult> PutEspecialidad(int id, EspecialidadDTO especialidadDTO)
         {
-            if (id != especialidad.EspecialidadId)
+            var especialidad = await _context.Especialidades.FindAsync(id);
+
+            if (especialidad == null)
             {
-                return BadRequest();
+                return NotFound("Especialidad no encontrada.");
             }
 
-            _context.Entry(especialidad).State = EntityState.Modified;
+            // Actualiza las propiedades de la entidad según los valores del DTO
+            especialidad.Descripcion = especialidadDTO.Descripcion;
+            // Actualiza otras propiedades si es necesario
 
             try
             {
@@ -69,9 +80,9 @@ namespace TEAyudo.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EspecialidadExists(id))
+                if (!EspecialidadExiste(id))
                 {
-                    return NotFound();
+                    return NotFound("Especialidad no encontrada.");
                 }
                 else
                 {
@@ -83,32 +94,33 @@ namespace TEAyudo.Controllers
         }
 
         // POST: api/Especialidades
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Especialidad>> PostEspecialidad(Especialidad especialidad)
+        public async Task<ActionResult<EspecialidadDTO>> PostEspecialidad(EspecialidadDTO especialidadDTO)
         {
-          if (_context.Especialidades == null)
-          {
-              return Problem("Entity set 'TEAyudoContext.Especialidades'  is null.");
-          }
+            var especialidad = new Especialidad
+            {
+                EspecialidadId = especialidadDTO.EspecialidadId,
+                Descripcion = especialidadDTO.Descripcion
+                // Asigna otras propiedades si es necesario
+            };
+
             _context.Especialidades.Add(especialidad);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEspecialidad", new { id = especialidad.EspecialidadId }, especialidad);
+            // Actualiza el ID de la especialidadDTO con el ID generado en la base de datos
+            especialidadDTO.EspecialidadId = especialidad.EspecialidadId;
+
+            return CreatedAtAction("GetEspecialidad", new { id = especialidadDTO.EspecialidadId }, especialidadDTO);
         }
 
-        // DELETE: api/Especialidades/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEspecialidad(int id)
         {
-            if (_context.Especialidades == null)
-            {
-                return NotFound();
-            }
             var especialidad = await _context.Especialidades.FindAsync(id);
+
             if (especialidad == null)
             {
-                return NotFound();
+                return NotFound("Especialidad no encontrada.");
             }
 
             _context.Especialidades.Remove(especialidad);
@@ -117,7 +129,8 @@ namespace TEAyudo.Controllers
             return NoContent();
         }
 
-        private bool EspecialidadExists(int id)
+
+        private bool EspecialidadExiste(int id)
         {
             return (_context.Especialidades?.Any(e => e.EspecialidadId == id)).GetValueOrDefault();
         }

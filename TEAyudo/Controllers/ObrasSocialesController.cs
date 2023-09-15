@@ -40,21 +40,25 @@ namespace TEAyudo.Controllers
 
         // GET: api/ObraSocialws/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ObraSocial>> GetObraSocial(int id)
+        public async Task<ActionResult<ObraSocialDTO>> GetObraSocial(int id)
         {
-            if (_context.ObrasSociales == null)
-            {
-                return NotFound();
-            }
             var obraSocial = await _context.ObrasSociales.FindAsync(id);
 
             if (obraSocial == null)
             {
-                return NotFound();
+                return NotFound("Obra Social no encontrada.");
             }
 
-            return obraSocial;
+            var obraSocialDTO = new ObraSocialDTO
+            {
+                Nombre = obraSocial.Nombre,
+                Descripcion = obraSocial.Descripcion
+                // Mapea otros campos si es necesario
+            };
+
+            return Ok(obraSocialDTO);
         }
+
 
         // PUT: api/ObraSocials/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

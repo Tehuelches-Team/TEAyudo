@@ -1,6 +1,9 @@
-﻿namespace Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Entities;
 public class Acompanante
 {
+    [Key]
     public int AcompananteId { get; set; }
     public int UsuarioId { get; set; }
     public string ZonaLaboral { get; set; }

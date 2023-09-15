@@ -1,104 +1,70 @@
 ﻿using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TEAyudo;
+using TEAyudo.API.Services;
+using TEAyudo.DTO;
 
 namespace TEAyudo.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/tutores")]
     [ApiController]
-    public class TutoresController : ControllerBase
+    public class TutorController : ControllerBase
     {
+        private readonly TutorService _tutorService;
         private readonly TEAyudoContext _context;
 
-        public TutoresController(TEAyudoContext context)
+        public TutorController(TEAyudoContext context)
         {
             _context = context;
         }
 
-        // GET: api/Tutores
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tutor>>> GetTutores()
-        {
-            return await _context.Tutores.Include(t => t.Usuario).ToListAsync();
-        }
-
-        // GET: api/Tutores/5
+        // GET: api/tutores/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Tutor>> GetTutor(int id)
+        public async Task<ActionResult<TutorDTO>> GetTutor(int id)
         {
-            var tutor = await _context.Tutores.Include(t => t.Usuario).FirstOrDefaultAsync(t => t.TutorId == id);
+            var tutorDTO = await _tutorService.GetTutorAsync(id);
 
-            if (tutor == null)
+            if (tutorDTO == null)
             {
                 return NotFound();
             }
 
-            return tutor;
+            return tutorDTO;
         }
 
-        // POST: api/Tutores
         [HttpPost]
-        public async Task<ActionResult<Tutor>> PostTutor(Tutor tutor)
+        public async Task<IActionResult> CreateTutorWithUser([FromBody] UsuarioDTO usuarioDTO)
         {
+            // Primero, crea el usuario
+            var usuario = new Usuario
+            {
+                Nombre = usuarioDTO.Nombre,
+                Apellido = usuarioDTO.Apellido,
+                CorreoElectronico = usuarioDTO.CorreoElectronico
+                //Contrasena = usuarioDTO.Contrasena,
+                //Domicilio = usuarioDTO.Domicilio,
+                //FotoPerfil = usuarioDTO.FotoPerfil,
+                //FechanNacimiento = usuarioDTO.FechaNacimiento
+                // Otras propiedades del usuario
+            };
+
+            _context.Usuarios.Add(usuario);
+            await _context.SaveChangesAsync();
+
+            // Una vez que se crea el usuario, utiliza su UsuarioId para crear el Tutor
+            var tutor = new Tutor
+            {
+                UsuarioId = usuario.UsuarioId, // Asigna el UsuarioId del usuario recién creado
+                // Otras propiedades del tutor
+            };
+
             _context.Tutores.Add(tutor);
             await _context.SaveChangesAsync();
 
+            // Devuelve una respuesta adecuada, por ejemplo, un código 201 (Created) con la información del nuevo tutor
             return CreatedAtAction("GetTutor", new { id = tutor.TutorId }, tutor);
         }
 
-        // PUT: api/Tutores/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTutor(int id, Tutor tutor)
-        {
-            if (id != tutor.TutorId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(tutor).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TutorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // DELETE: api/Tutores/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTutor(int id)
-        {
-            var tutor = await _context.Tutores.FindAsync(id);
-            if (tutor == null)
-            {
-                return NotFound();
-            }
-
-            _context.Tutores.Remove(tutor);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool TutorExists(int id)
-        {
-            return _context.Tutores.Any(e => e.TutorId == id);
-        }
+        // Agrega más métodos según tus necesidades, como métodos para gestionar pacientes, etc.
     }
 }

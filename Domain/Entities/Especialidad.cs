@@ -1,12 +1,14 @@
-﻿namespace Domain.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Entities
 {
     public class Especialidad
     {
+        [Key]
         public int EspecialidadId { get; set; }
 
-        public string Descripcion { get; set; }
+        public required string Descripcion { get; set; }
 
-        //        public int AcompananteId { get; set; }
         public ICollection<Acompanante> Acompanantes { get; set; }
     }
 }
