@@ -4,7 +4,7 @@ using TEAyudo;
 using Microsoft.Extensions.Options;
 
 namespace TEAyudo;
-public class TEAyudoContext :DbContext
+public class TEAyudoContext : DbContext
 {
     public DbSet<Acompanante> Acompanantes { get; set; }
     public DbSet<Especialidad> Especialidades { get; set; }
@@ -39,10 +39,20 @@ public class TEAyudoContext :DbContext
         modelBuilder.Entity<Tutor>(entity =>
         {
             entity.HasOne(t => t.Usuario)
-            .WithOne()
-            .HasForeignKey<Tutor>(t => t.UsuarioId);
-
+                .WithMany(u => u.Tutores)
+                .HasForeignKey(t => t.UsuarioId);
         });
+
+
+        modelBuilder.Entity<Usuario>(entity =>
+        {
+            entity.HasMany(u => u.Tutores)
+                .WithOne(t => t.Usuario)
+                .HasForeignKey(t => t.UsuarioId);
+        });
+
+
+
 
         modelBuilder.Entity<EstadoUsuario>(entity =>
         {
@@ -129,16 +139,12 @@ public class TEAyudoContext :DbContext
 
         modelBuilder.Entity<Paciente>(entity =>
         { 
-            entity.ToTable("Paciente"); 
             entity.HasKey(p => p.PacienteId);
             entity.Property(p => p.PacienteId);
             entity.HasOne(p => p.Tutor)
             .WithMany(t => t.Pacientes) 
             .HasForeignKey(p => p.TutorId);
         });
-
-
-
 
         }
 

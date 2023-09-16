@@ -57,6 +57,9 @@ namespace Infraestructure.Migrations
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UsuarioId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("ZonaLaboral")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -68,6 +71,8 @@ namespace Infraestructure.Migrations
 
                     b.HasIndex("UsuarioId")
                         .IsUnique();
+
+                    b.HasIndex("UsuarioId1");
 
                     b.ToTable("Acompanante", (string)null);
                 });
@@ -290,8 +295,7 @@ namespace Infraestructure.Migrations
 
                     b.HasKey("TutorId");
 
-                    b.HasIndex("UsuarioId")
-                        .IsUnique();
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Tutor", (string)null);
                 });
@@ -349,6 +353,10 @@ namespace Infraestructure.Migrations
                         .HasForeignKey("Domain.Entities.Acompanante", "UsuarioId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Domain.Entities.Usuario", null)
+                        .WithMany("Acompanantes")
+                        .HasForeignKey("UsuarioId1");
 
                     b.Navigation("EstadoUsuario");
 
@@ -456,8 +464,8 @@ namespace Infraestructure.Migrations
             modelBuilder.Entity("Domain.Entities.Tutor", b =>
                 {
                     b.HasOne("Domain.Entities.Usuario", "Usuario")
-                        .WithOne()
-                        .HasForeignKey("Domain.Entities.Tutor", "UsuarioId")
+                        .WithMany("Tutores")
+                        .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -490,6 +498,13 @@ namespace Infraestructure.Migrations
                     b.Navigation("Pacientes");
 
                     b.Navigation("Propuestas");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Usuario", b =>
+                {
+                    b.Navigation("Acompanantes");
+
+                    b.Navigation("Tutores");
                 });
 #pragma warning restore 612, 618
         }
