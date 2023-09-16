@@ -27,7 +27,7 @@ public class TEAyudoContext :DbContext
         
         modelBuilder.Entity<Tutor>(entity =>
         {
-            entity.ToTable("Tutor");
+            entity.ToTable("Tutores");
             entity.HasKey(t => t.TutorId);
             entity.Property(t => t.TutorId);
             entity.HasMany<Paciente>(t => t.Pacientes)

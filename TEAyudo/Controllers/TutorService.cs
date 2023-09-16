@@ -89,10 +89,7 @@ namespace TEAyudo.API.Services
                 // Crear un DTO a partir de los datos del tutor y el usuario
                 var tutorDTO = new TutorDTO
                 {
-                    TutorId = tutor.TutorId,
-                    Nombre = tutor.Usuario.Nombre,
-                    Apellido = tutor.Usuario.Apellido,
-                    CorreoElectronico = tutor.Usuario.CorreoElectronico,
+                    TutorId = tutor.TutorId
                     // Otros campos del tutor que desees incluir en el DTO
                 };
 
