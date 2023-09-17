@@ -1,6 +1,10 @@
 
+using Application.Interfaces;
+using Application.UseCase.Pacientes;
 using Domain;
 using Infraestructure;
+using Infraestructure.Command;
+using Infraestructure.Querys;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using TEAyudo;
@@ -26,6 +30,14 @@ builder.Services.AddDbContext<TEAyudoContext>(options =>
 
 
 //     CUSTOM
+//cuando me piden un IServiceGetAll devuelve una clase ServiceGetAll, inyeccion de dependencia 
+//builder.Services.AddTransient<IServiceGetAll, ServiceGetAll>(); elimine sus clase, pero lo dejo a modo de ejemplo
+builder.Services.AddTransient<IPacienteService, PacienteService>();
+builder.Services.AddTransient<IPacientesCommand, PacientesCommand>();
+builder.Services.AddTransient<IPacientesQuerys, PacientesQuerys>();
+
+
+
 
 var app = builder.Build();
 
