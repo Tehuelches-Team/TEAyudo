@@ -1,6 +1,10 @@
 
+using Application.Interfaces;
+using Application.Interfaces.Aplication;
+using Application.UseCase.Filtros;
 using Domain;
 using Infraestructure;
+using Infraestructure.Querys;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using TEAyudo;
@@ -18,14 +22,14 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<TEAyudoContext>(options =>
 {
-    options.UseSqlServer("Server=localhost;Database=TEAyudo;Trusted_Connection=True;TrustServerCertificate=True");
+    options.UseSqlServer("Server=localhost;Database=TEAyudo;Trusted_Connection=True;TrustServerCertificate=True;Persist Security Info=true");
 
 });
 
 
+builder.Services.AddTransient<IFiltro, Filtro>();
+builder.Services.AddTransient<IConsulta, Query_Acompanante>();
 
-
-//     CUSTOM
 
 var app = builder.Build();
 
