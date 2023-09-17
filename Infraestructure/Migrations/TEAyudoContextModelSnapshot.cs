@@ -314,7 +314,7 @@ namespace Infraestructure.Migrations
                     b.Property<int>("EstadoUsuarioId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FechanNacimiento")
+                    b.Property<DateTime>("FechaNacimiento")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FotoPerfil")

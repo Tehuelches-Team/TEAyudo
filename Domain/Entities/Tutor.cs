@@ -1,6 +1,11 @@
-﻿namespace Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Entities;
 public class Tutor
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int TutorId { get; set; }
     public int UsuarioId { get; set; }
     public ICollection<Paciente> Pacientes { get; set; }

@@ -1,6 +1,5 @@
-﻿using System;
+﻿
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.Win32;
 
 #nullable disable
 
@@ -77,7 +76,7 @@ namespace Infraestructure.Migrations
                     Contrasena = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FotoPerfil = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Domicilio = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FechanNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EstadoUsuarioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -348,7 +347,7 @@ namespace Infraestructure.Migrations
                 values: new object[] { "Bloqueado" });
             migrationBuilder.InsertData(
                table: "Usuarios",
-               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechanNacimiento", "EstadoUsuarioId" },
+               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechaNacimiento", "EstadoUsuarioId" },
                values: new object[] {  "Ariel",
                                         "Ortiz",
                                         "aortiz@yopmail.com",
@@ -360,7 +359,7 @@ namespace Infraestructure.Migrations
 
             migrationBuilder.InsertData(
                table: "Usuarios",
-               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechanNacimiento", "EstadoUsuarioId" },
+               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechaNacimiento", "EstadoUsuarioId" },
                values: new object[] {  "Pablo",
                                         "Morel",
                                         "pmorel@yopmail.com",
@@ -371,7 +370,7 @@ namespace Infraestructure.Migrations
                                         "2"});
             migrationBuilder.InsertData(
                table: "Usuarios",
-               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechanNacimiento", "EstadoUsuarioId" },
+               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechaNacimiento", "EstadoUsuarioId" },
                values: new object[] {  "Marcelo",
                                         "Zona",
                                         "mzona@yopmail.com",

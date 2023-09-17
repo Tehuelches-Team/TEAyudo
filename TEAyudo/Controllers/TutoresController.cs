@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TEAyudo;
+using TEAyudo.DTO; // Añadimos el namespace del DTO
 
 namespace TEAyudo.Controllers
 {
@@ -19,14 +20,12 @@ namespace TEAyudo.Controllers
             _context = context;
         }
 
-        // GET: api/Tutores
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tutor>>> GetTutores()
         {
             return await _context.Tutores.Include(t => t.Usuario).ToListAsync();
         }
 
-        // GET: api/Tutores/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Tutor>> GetTutor(int id)
         {
@@ -40,24 +39,38 @@ namespace TEAyudo.Controllers
             return tutor;
         }
 
-        // POST: api/Tutores
         [HttpPost]
-        public async Task<ActionResult<Tutor>> PostTutor(Tutor tutor)
+        public async Task<ActionResult<Tutor>> PostTutor(TutorDTO tutorDTO) // Utilizamos el DTO en lugar de Tutor
         {
+            var tutor = new Tutor
+            {
+                TutorId = tutorDTO.TutorId,
+                UsuarioId = tutorDTO.UsuarioId,
+                // Asigna otras propiedades del tutor según el DTO
+                CertUniDisc = tutorDTO.CertUniDisc
+            };
+
             _context.Tutores.Add(tutor);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTutor", new { id = tutor.TutorId }, tutor);
         }
 
-        // PUT: api/Tutores/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTutor(int id, Tutor tutor)
+        public async Task<IActionResult> PutTutor(int id, TutorDTO tutorDTO) 
         {
-            if (id != tutor.TutorId)
+            if (id != tutorDTO.TutorId)
             {
                 return BadRequest();
             }
+
+            var tutor = new Tutor
+            {
+                TutorId = tutorDTO.TutorId,
+                UsuarioId = tutorDTO.UsuarioId,
+                CertUniDisc = tutorDTO.CertUniDisc
+                
+            };
 
             _context.Entry(tutor).State = EntityState.Modified;
 

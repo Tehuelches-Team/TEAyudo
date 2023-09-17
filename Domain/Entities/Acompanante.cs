@@ -1,6 +1,11 @@
-﻿namespace Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Entities;
 public class Acompanante
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int AcompananteId { get; set; }
     public int UsuarioId { get; set; }
     public string ZonaLaboral { get; set; }
