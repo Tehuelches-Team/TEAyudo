@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Domain.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,7 +27,7 @@ namespace TEAyudo.Controllers
 
        
         [HttpPost] //listo
-        public async Task<IActionResult> createPaciente(Paciente paciente) 
+        public async Task<IActionResult> createPaciente(PacienteDTO paciente) 
         {
             var result = _service.createPaciente(paciente);
             return new JsonResult(result);

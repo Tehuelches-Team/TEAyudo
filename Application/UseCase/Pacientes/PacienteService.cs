@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,17 @@ namespace Application.UseCase.Pacientes
             _querys = querys;
         }
 
-        public async Task<Paciente> createPaciente(Paciente paciente)  //listo
+        public async Task<Paciente> createPaciente(PacienteDTO pacienteDTO)  //listo
         {
+            Paciente paciente = new Paciente
+            {
+                Nombre = pacienteDTO.Nombre,
+                Apellido = pacienteDTO.Apellido,
+                FechaNacimiento = pacienteDTO.FechaNacimiento,
+                DiagnosticoTEA = pacienteDTO.DiagnosticoTEA,
+                Sexo = pacienteDTO.Sexo,
+                TutorId = pacienteDTO.TutorId
+            };
             await _command.insertPaciente(paciente);
             return paciente;
         }
