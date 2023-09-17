@@ -1,14 +1,15 @@
-﻿namespace Domain.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain.Entities
 {
     public class EstadoUsuario
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EstadoUsuarioId { get; set; }
         public string Descripcion { get; set; }
-        //        public int AcompananteId { get; set; }
-        public Acompanante Acompanante { get; set; }
-
-        //        public int TutorId { get; set; }
-        public Tutor Tutor { get; set; }
-
+        //public int UsuarioId { get; set; }
+        public Usuario Usuario { get; set;}
     }
 }

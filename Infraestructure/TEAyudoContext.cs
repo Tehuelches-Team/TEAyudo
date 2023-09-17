@@ -44,23 +44,6 @@ public class TEAyudoContext :DbContext
 
         });
 
-        modelBuilder.Entity<EstadoUsuario>(entity =>
-        {
-            entity.ToTable("EstadoUsuario");
-            entity.HasKey(eu => eu.EstadoUsuarioId);
-            entity.Property(eu => eu.EstadoUsuarioId);
-            entity.HasOne(eu => eu.Tutor)
-                .WithOne(t => t.EstadoUsuario)
-                .HasForeignKey<EstadoUsuario>(t => t.EstadoUsuarioId);
-        });
-
-        modelBuilder.Entity<EstadoUsuario>(entity =>
-        {
-            entity.HasOne(e => e.Acompanante)
-                .WithOne(t => t.EstadoUsuario)
-                .HasForeignKey<Acompanante>(t => t.EstadoUsuarioId);
-
-        });
 
         modelBuilder.Entity<Propuesta>(entity =>
         {
@@ -137,13 +120,15 @@ public class TEAyudoContext :DbContext
             .HasForeignKey(p => p.TutorId);
         });
 
-
-
+        modelBuilder.Entity<Usuario>()
+            .HasOne(u => u.EstadoUsuario)
+            .WithOne(eu => eu.Usuario)
+            .HasForeignKey<EstadoUsuario>(eu => eu.EstadoUsuarioId);
 
         }
 
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Server=localhost;Database=TEAyudo;Trusted_Connection=True;TrustServerCertificate=True");
     }
