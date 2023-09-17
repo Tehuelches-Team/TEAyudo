@@ -1,11 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TEAyudo;
-using TEAyudo.DTO; // Añadimos el namespace del DTO
+using TEAyudo.DTO;
 
 namespace TEAyudo.Controllers
 {
@@ -40,13 +36,12 @@ namespace TEAyudo.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Tutor>> PostTutor(TutorDTO tutorDTO) // Utilizamos el DTO en lugar de Tutor
+        public async Task<ActionResult<Tutor>> PostTutor(TutorDTO tutorDTO)
         {
             var tutor = new Tutor
             {
                 TutorId = tutorDTO.TutorId,
                 UsuarioId = tutorDTO.UsuarioId,
-                // Asigna otras propiedades del tutor según el DTO
                 CertUniDisc = tutorDTO.CertUniDisc
             };
 
@@ -93,7 +88,6 @@ namespace TEAyudo.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Tutores/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTutor(int id)
         {
