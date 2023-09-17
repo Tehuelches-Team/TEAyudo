@@ -44,9 +44,6 @@ namespace Infraestructure.Migrations
                     b.Property<int>("EspecialidadId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EstadoUsuarioId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Experiencia")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -62,9 +59,6 @@ namespace Infraestructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AcompananteId");
-
-                    b.HasIndex("EstadoUsuarioId")
-                        .IsUnique();
 
                     b.HasIndex("UsuarioId")
                         .IsUnique();
@@ -174,7 +168,7 @@ namespace Infraestructure.Migrations
 
                     b.HasKey("EstadoUsuarioId");
 
-                    b.ToTable("EstadoUsuario", (string)null);
+                    b.ToTable("EstadoUsuarios");
                 });
 
             modelBuilder.Entity("Domain.Entities.ObraSocial", b =>
@@ -282,9 +276,6 @@ namespace Infraestructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EstadoUsuarioId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
@@ -320,6 +311,9 @@ namespace Infraestructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EstadoUsuarioId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("FechanNacimiento")
                         .HasColumnType("datetime2");
 
@@ -338,19 +332,11 @@ namespace Infraestructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Acompanante", b =>
                 {
-                    b.HasOne("Domain.Entities.EstadoUsuario", "EstadoUsuario")
-                        .WithOne("Acompanante")
-                        .HasForeignKey("Domain.Entities.Acompanante", "EstadoUsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Usuario", "Usuario")
                         .WithOne()
                         .HasForeignKey("Domain.Entities.Acompanante", "UsuarioId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("EstadoUsuario");
 
                     b.Navigation("Usuario");
                 });
@@ -406,13 +392,13 @@ namespace Infraestructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.EstadoUsuario", b =>
                 {
-                    b.HasOne("Domain.Entities.Tutor", "Tutor")
+                    b.HasOne("Domain.Entities.Usuario", "Usuario")
                         .WithOne("EstadoUsuario")
                         .HasForeignKey("Domain.Entities.EstadoUsuario", "EstadoUsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Tutor");
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Domain.Entities.Paciente", b =>
@@ -476,20 +462,17 @@ namespace Infraestructure.Migrations
                     b.Navigation("Propuestas");
                 });
 
-            modelBuilder.Entity("Domain.Entities.EstadoUsuario", b =>
-                {
-                    b.Navigation("Acompanante")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Domain.Entities.Tutor", b =>
                 {
-                    b.Navigation("EstadoUsuario")
-                        .IsRequired();
-
                     b.Navigation("Pacientes");
 
                     b.Navigation("Propuestas");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Usuario", b =>
+                {
+                    b.Navigation("EstadoUsuario")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Win32;
 
 #nullable disable
 
@@ -25,7 +26,7 @@ namespace Infraestructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EstadoPostulaciones",
+                name: "EstadoPropuestas",
                 columns: table => new
                 {
                     EstadoPropuestaId = table.Column<int>(type: "int", nullable: false)
@@ -34,20 +35,7 @@ namespace Infraestructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EstadoPostulaciones", x => x.EstadoPropuestaId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EstadoUsuario",
-                columns: table => new
-                {
-                    EstadoUsuarioId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EstadoUsuario", x => x.EstadoUsuarioId);
+                    table.PrimaryKey("PK_EstadoPropuestas", x => x.EstadoPropuestaId);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,7 +53,20 @@ namespace Infraestructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Usuario",
+                name: "EstadoUsuarios",
+                columns: table => new
+                {
+                    EstadoUsuarioId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EstadoUsuarios", x => x.EstadoUsuarioId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuarios",
                 columns: table => new
                 {
                     UsuarioId = table.Column<int>(type: "int", nullable: false)
@@ -76,22 +77,29 @@ namespace Infraestructure.Migrations
                     Contrasena = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FotoPerfil = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Domicilio = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FechanNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    FechanNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EstadoUsuarioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuario", x => x.UsuarioId);
+                    table.PrimaryKey("PK_Usuarios", x => x.UsuarioId);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_EstadoUsuarios_EstadoUsuarioId",
+                        column: x => x.EstadoUsuarioId,
+                        principalTable: "EstadoUsuarios",
+                        principalColumn: "EstadoUsuarioId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
+
             migrationBuilder.CreateTable(
-                name: "Acompanantes",
+                name: "Acompanante",
                 columns: table => new
                 {
                     AcompananteId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UsuarioId = table.Column<int>(type: "int", nullable: false),
                     ZonaLaboral = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EstadoUsuarioId = table.Column<int>(type: "int", nullable: false),
                     ObraSocialId = table.Column<int>(type: "int", nullable: false),
                     Contacto = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Documentacion = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -101,44 +109,33 @@ namespace Infraestructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Acompanantes", x => x.AcompananteId);
+                    table.PrimaryKey("PK_Acompanante", x => x.AcompananteId);
                     table.ForeignKey(
-                        name: "FK_Acompanantes_EstadoUsuario_EstadoUsuarioId",
-                        column: x => x.EstadoUsuarioId,
-                        principalTable: "EstadoUsuario",
-                        principalColumn: "EstadoUsuarioId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Acompanantes_Usuario_UsuarioId",
+                        name: "FK_Acompanante_Usuarios_UsuarioId",
                         column: x => x.UsuarioId,
-                        principalTable: "Usuario",
+                        principalTable: "Usuarios",
                         principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
+
+
             migrationBuilder.CreateTable(
-                name: "Tutores",
+                name: "Tutor",
                 columns: table => new
                 {
                     TutorId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UsuarioId = table.Column<int>(type: "int", nullable: false),
-                    CertUniDisc = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EstadoUsuarioId = table.Column<int>(type: "int", nullable: false)
+                    CertUniDisc = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tutores", x => x.TutorId);
+                    table.PrimaryKey("PK_Tutor", x => x.TutorId);
                     table.ForeignKey(
-                        name: "FK_Tutores_EstadoUsuario_EstadoUsuarioId",
-                        column: x => x.EstadoUsuarioId,
-                        principalTable: "EstadoUsuario",
-                        principalColumn: "EstadoUsuarioId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Tutores_Usuario_UsuarioId",
+                        name: "FK_Tutor_Usuarios_UsuarioId",
                         column: x => x.UsuarioId,
-                        principalTable: "Usuario",
+                        principalTable: "Usuarios",
                         principalColumn: "UsuarioId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -154,9 +151,9 @@ namespace Infraestructure.Migrations
                 {
                     table.PrimaryKey("PK_AcompananteEspecialidad", x => new { x.AcompananteId, x.EspecialidadId });
                     table.ForeignKey(
-                        name: "FK_AcompananteEspecialidad_Acompanantes_AcompananteId",
+                        name: "FK_AcompananteEspecialidad_Acompanante_AcompananteId",
                         column: x => x.AcompananteId,
-                        principalTable: "Acompanantes",
+                        principalTable: "Acompanante",
                         principalColumn: "AcompananteId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -178,9 +175,9 @@ namespace Infraestructure.Migrations
                 {
                     table.PrimaryKey("PK_AcompananteObraSocial", x => new { x.AcompananteId, x.ObrasocialId });
                     table.ForeignKey(
-                        name: "FK_AcompananteObraSocial_Acompanantes_AcompananteId",
+                        name: "FK_AcompananteObraSocial_Acompanante_AcompananteId",
                         column: x => x.AcompananteId,
-                        principalTable: "Acompanantes",
+                        principalTable: "Acompanante",
                         principalColumn: "AcompananteId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -192,7 +189,7 @@ namespace Infraestructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DisponibilidadSemanal",
+                name: "DisponibilidadesSemanales",
                 columns: table => new
                 {
                     DisponibilidadSemanalId = table.Column<int>(type: "int", nullable: false)
@@ -204,17 +201,17 @@ namespace Infraestructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DisponibilidadSemanal", x => x.DisponibilidadSemanalId);
+                    table.PrimaryKey("PK_DisponibilidadesSemanales", x => x.DisponibilidadSemanalId);
                     table.ForeignKey(
-                        name: "FK_DisponibilidadSemanal_Acompanantes_AcompananteId",
+                        name: "FK_DisponibilidadesSemanales_Acompanante_AcompananteId",
                         column: x => x.AcompananteId,
-                        principalTable: "Acompanantes",
+                        principalTable: "Acompanante",
                         principalColumn: "AcompananteId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pacientes",
+                name: "Paciente",
                 columns: table => new
                 {
                     PacienteId = table.Column<int>(type: "int", nullable: false)
@@ -228,11 +225,11 @@ namespace Infraestructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pacientes", x => x.PacienteId);
+                    table.PrimaryKey("PK_Paciente", x => x.PacienteId);
                     table.ForeignKey(
-                        name: "FK_Pacientes_Tutores_TutorId",
+                        name: "FK_Paciente_Tutor_TutorId",
                         column: x => x.TutorId,
-                        principalTable: "Tutores",
+                        principalTable: "Tutor",
                         principalColumn: "TutorId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -253,24 +250,30 @@ namespace Infraestructure.Migrations
                 {
                     table.PrimaryKey("PK_Propuesta", x => x.PropuestaId);
                     table.ForeignKey(
-                        name: "FK_Propuesta_Acompanantes_AcompananteId",
+                        name: "FK_Propuesta_Acompanante_AcompananteId",
                         column: x => x.AcompananteId,
-                        principalTable: "Acompanantes",
+                        principalTable: "Acompanante",
                         principalColumn: "AcompananteId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Propuesta_EstadoPostulaciones_EstadoPropuestaId",
+                        name: "FK_Propuesta_EstadoPropuestas_EstadoPropuestaId",
                         column: x => x.EstadoPropuestaId,
-                        principalTable: "EstadoPostulaciones",
+                        principalTable: "EstadoPropuestas",
                         principalColumn: "EstadoPropuestaId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Propuesta_Tutores_TutorId",
+                        name: "FK_Propuesta_Tutor_TutorId",
                         column: x => x.TutorId,
-                        principalTable: "Tutores",
+                        principalTable: "Tutor",
                         principalColumn: "TutorId",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Acompanante_UsuarioId",
+                table: "Acompanante",
+                column: "UsuarioId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AcompananteEspecialidad_EspecialidadId",
@@ -283,25 +286,19 @@ namespace Infraestructure.Migrations
                 column: "ObrasocialId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Acompanantes_EstadoUsuarioId",
-                table: "Acompanantes",
+                name: "IX_DisponibilidadesSemanales_AcompananteId",
+                table: "DisponibilidadesSemanales",
+                column: "AcompananteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EstadoUsuarios_EstadoUsuarioId",
+                table: "EstadoUsuarios",
                 column: "EstadoUsuarioId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Acompanantes_UsuarioId",
-                table: "Acompanantes",
-                column: "UsuarioId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DisponibilidadSemanal_AcompananteId",
-                table: "DisponibilidadSemanal",
-                column: "AcompananteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pacientes_TutorId",
-                table: "Pacientes",
+                name: "IX_Paciente_TutorId",
+                table: "Paciente",
                 column: "TutorId");
 
             migrationBuilder.CreateIndex(
@@ -320,14 +317,8 @@ namespace Infraestructure.Migrations
                 column: "TutorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tutores_EstadoUsuarioId",
-                table: "Tutores",
-                column: "EstadoUsuarioId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tutores_UsuarioId",
-                table: "Tutores",
+                name: "IX_Tutor_UsuarioId",
+                table: "Tutor",
                 column: "UsuarioId",
                 unique: true);
 
@@ -341,69 +332,83 @@ namespace Infraestructure.Migrations
                                     { "OSDE", "Obra Social De Empresarios" },
                                     { "IOMA", "I O M A" }
                 });
+            migrationBuilder.InsertData(
+                table: "EstadoUsuarios", // Nombre de la tabla
+                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[] { "Pendinte de validar" });
 
             migrationBuilder.InsertData(
-               table: "Usuario",
-               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechanNacimiento" },
+                table: "EstadoUsuarios", // Nombre de la tabla
+                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[] { "Validado" });
+
+            migrationBuilder.InsertData(
+                table: "EstadoUsuarios", // Nombre de la tabla
+                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
+                values: new object[] { "Bloqueado" });
+            migrationBuilder.InsertData(
+               table: "Usuarios",
+               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechanNacimiento", "EstadoUsuarioId" },
                values: new object[] {  "Ariel",
                                         "Ortiz",
                                         "aortiz@yopmail.com",
                                         "1q2w3e4r" ,
                                         "/user/img/arielortiz.jpg" ,
                                         "Montevideo 600" ,
-                                        "1980/10/01"});
+                                        "1980/10/01",
+                                        "2"});
 
             migrationBuilder.InsertData(
-               table: "Usuario",
-               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechanNacimiento" },
+               table: "Usuarios",
+               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechanNacimiento", "EstadoUsuarioId" },
                values: new object[] {  "Pablo",
                                         "Morel",
                                         "pmorel@yopmail.com",
                                         "1q2w3e4r" ,
                                         "/user/img/pablomorel.jpg" ,
                                         "Reconquista 2500" ,
-                                        "1980/10/01"});
+                                        "1980/10/01",
+                                        "2"});
             migrationBuilder.InsertData(
-               table: "Usuario",
-               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechanNacimiento" },
+               table: "Usuarios",
+               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechanNacimiento", "EstadoUsuarioId" },
                values: new object[] {  "Marcelo",
                                         "Zona",
                                         "mzona@yopmail.com",
                                         "1q2w3e4r" ,
                                         "/user/img/marcelozona.jpg" ,
                                         "Paseo Colon 2500" ,
-                                        "1980/10/01"});
-            migrationBuilder.InsertData(
-                table: "EstadoUsuario", // Nombre de la tabla
-                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
-                values: new object[]{ "Pendinte de validar"});
+                                        "1980/10/01",
+                                        "2"});
 
-            migrationBuilder.InsertData(
-                table: "EstadoUsuario", // Nombre de la tabla
-                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
-                values: new object[]{ "Validado"});
-
-            migrationBuilder.InsertData(
-                table: "EstadoUsuario", // Nombre de la tabla
-                columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
-                values: new object[]{ "Bloqueado" });
 
             migrationBuilder.InsertData(
                 table: "Especialidades", // Nombre de la tabla
                 columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
-                values: new object[]{ "Acompañante Terapeutico"});
+                values: new object[] { "Acompañante Terapeutico" });
 
             migrationBuilder.InsertData(
                 table: "Especialidades", // Nombre de la tabla
                 columns: new[] { "Descripcion" }, // Columnas en las que deseas insertar datos
-                values: new object[]{ "Acompañante Escolar" });
+                values: new object[] { "Acompañante Escolar" });
 
             migrationBuilder.InsertData(
-               table: "Tutores",
-               columns: new[] { "CertUniDisc", "EstadoUsuarioId", "UsuarioId" },
-               values: new object[] { "/user/doc/cud.pdf",
-                   "1",
-                   "3"});
+               table: "Tutor",
+               columns: new[] { "UsuarioId", "CertUniDisc" },
+               values: new object[] {  "1",
+                                        "/user/doc/cud_user1.docx"});
+            migrationBuilder.InsertData(
+               table: "Tutor",
+               columns: new[] { "UsuarioId", "CertUniDisc" },
+               values: new object[] {  "2",
+                                        "/user/doc/cud_user2.docx"});
+
+            migrationBuilder.InsertData(
+               table: "Tutor",
+               columns: new[] { "UsuarioId", "CertUniDisc" },
+               values: new object[] {  "3",
+                                        "/user/doc/cud_user3.docx"});
+
             migrationBuilder.InsertData(
                 table: "Paciente",
                 columns: new[] { "Nombre", "Apellido", "FechaNacimiento", "DiagnosticoTEA", "Sexo", "TutorId" },
@@ -450,7 +455,11 @@ namespace Infraestructure.Migrations
 
 
 
+
         }
+
+
+
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -462,10 +471,13 @@ namespace Infraestructure.Migrations
                 name: "AcompananteObraSocial");
 
             migrationBuilder.DropTable(
-                name: "DisponibilidadSemanal");
+                name: "DisponibilidadesSemanales");
 
             migrationBuilder.DropTable(
-                name: "Pacientes");
+                name: "EstadoUsuarios");
+
+            migrationBuilder.DropTable(
+                name: "Paciente");
 
             migrationBuilder.DropTable(
                 name: "Propuesta");
@@ -477,19 +489,16 @@ namespace Infraestructure.Migrations
                 name: "ObrasSociales");
 
             migrationBuilder.DropTable(
-                name: "Acompanantes");
+                name: "Acompanante");
 
             migrationBuilder.DropTable(
-                name: "EstadoPostulaciones");
+                name: "EstadoPropuestas");
 
             migrationBuilder.DropTable(
-                name: "Tutores");
+                name: "Tutor");
 
             migrationBuilder.DropTable(
-                name: "EstadoUsuario");
-
-            migrationBuilder.DropTable(
-                name: "Usuario");
+                name: "Usuarios");
         }
     }
 }

@@ -11,6 +11,8 @@
         public string FotoPerfil { get; set; }
         public string Domicilio { get; set; }
         public DateTime FechanNacimiento { get; set; }
+        public int EstadoUsuarioId { get; set; }
+        public EstadoUsuario EstadoUsuario { get; set; }
     }
 
 }
