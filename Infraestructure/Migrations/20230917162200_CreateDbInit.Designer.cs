@@ -12,8 +12,8 @@ using TEAyudo;
 namespace Infraestructure.Migrations
 {
     [DbContext(typeof(TEAyudoContext))]
-    [Migration("20230918113917_test2")]
-    partial class test2
+    [Migration("20230917162200_CreateDbInit")]
+    partial class CreateDbInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,11 +166,19 @@ namespace Infraestructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EstadoUsuarioId"));
+
                     b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("EstadoUsuarioId");
+
+                    b.HasIndex("UsuarioId")
+                        .IsUnique();
 
                     b.ToTable("EstadoUsuarios");
                 });
@@ -402,7 +410,7 @@ namespace Infraestructure.Migrations
                 {
                     b.HasOne("Domain.Entities.Usuario", "Usuario")
                         .WithOne("EstadoUsuario")
-                        .HasForeignKey("Domain.Entities.EstadoUsuario", "EstadoUsuarioId")
+                        .HasForeignKey("Domain.Entities.EstadoUsuario", "UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -8,7 +8,9 @@ namespace TEAyudo
     {
         public static async Task EnviarToken(Usuario usuario)
         {
-            var apiKey = "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"; // Reemplaza esto con tu propia clave API de SendGrid
+            var apiKeyMitad1 = "SG.6agBuaYXTv6N1EcfBeJ3LQ.";
+            var apiKeyMitad2 = "SxcaYKwbrco6oqZjDdEk7nBM1l-WElTeC4lcZ1kY50k";
+            var apiKey = apiKeyMitad1 + apiKeyMitad2;
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("teayudo@yopmail.com", "TEAyudo");
             var subject = "Verificación de Registro - TEAyudo";

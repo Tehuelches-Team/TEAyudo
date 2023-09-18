@@ -51,7 +51,8 @@ namespace TEAyudo.Controllers
                 FotoPerfil = usuarioDTO.FotoPerfil,
                 Domicilio = usuarioDTO.Domicilio,
                 FechaNacimiento = usuarioDTO.FechaNacimiento,
-                EstadoUsuarioId = usuarioDTO.EstadoUsuarioId
+                EstadoUsuarioId = usuarioDTO.EstadoUsuarioId,
+                Token = usuarioDTO.Token
             };
 
             _context.Usuarios.Add(usuario);
@@ -79,7 +80,8 @@ namespace TEAyudo.Controllers
                 FotoPerfil = usuarioDTO.FotoPerfil,
                 Domicilio = usuarioDTO.Domicilio,
                 FechaNacimiento = usuarioDTO.FechaNacimiento,
-                EstadoUsuarioId = usuarioDTO.EstadoUsuarioId
+                EstadoUsuarioId = usuarioDTO.EstadoUsuarioId,
+                Token = usuarioDTO.Token
             };
 
             _context.Entry(usuario).State = EntityState.Modified;

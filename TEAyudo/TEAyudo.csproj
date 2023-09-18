@@ -22,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Infraestructure\Infraestructure.csproj" />
+    <ProjectReference Include="..\Tools\Tools.csproj" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
