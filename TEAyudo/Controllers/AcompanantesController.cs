@@ -1,7 +1,6 @@
 ﻿using Application.Interfaces.Aplication;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TEAyudo.DTO;
 
 namespace TEAyudo.Controllers
@@ -19,21 +18,14 @@ namespace TEAyudo.Controllers
         [HttpGet("ObraSocial")]
         public async Task<ActionResult<IEnumerable<Acompanante>>> GetAcompanante(string ObraSocial)
         {
-            /*var result = _context.Acompanantes.Include(s => s.ObrasSociales.Where(s => s.Nombre == ObraSocial))
-                .Include(s => s.DisponibilidadesSemanales)
-                .Include(s => s.Especialidades).ToListAsync();*/
-
-            //var result = _context.ObrasSociales.Include(s => s.Acompanantes)
-            //    .ThenInclude(s => s.DisponibilidadesSemanales)
-            //    .ThenInclude(s => s.Acompanante)
-            //    .ThenInclude(s => s.Especialidades)
-            //    .Where(s => s.Nombre==ObraSocial);
-
-            var result = _filtro.FiltarObraSocial(ObraSocial);
+            List<AcompananteDTO> result = await _filtro.FiltarObraSocial(ObraSocial);
 
             if(result == null)
             {
                 return BadRequest();
+            } else if (result.Count() == 0)
+            {
+                return NotFound();
             }
 
             return Ok(result);
@@ -42,11 +34,14 @@ namespace TEAyudo.Controllers
         [HttpGet("ZonaLaboral")]
         public async Task<ActionResult<IEnumerable<AcompananteDTO>>> GetAcompananteZonaLaboral(string zonalaboral)
         {
-            var result = _filtro.FiltarZonaLaboral(zonalaboral);
+            List<AcompananteDTO> result = await _filtro.FiltarZonaLaboral(zonalaboral);
 
             if (result == null)
             {
                 return BadRequest();
+            } else if (result.Count() == 0)
+            {
+                return NotFound();
             }
 
             return Ok(result);
@@ -55,11 +50,14 @@ namespace TEAyudo.Controllers
         [HttpGet("Especialidad")]
         public async Task<ActionResult<IEnumerable<AcompananteDTO>>> GetAcompananteEspecialidad(string Especialidad)
         {
-            var result = _filtro.FiltarEspecialidad(Especialidad);
+            List<AcompananteDTO> result = await _filtro.FiltarEspecialidad(Especialidad);
 
             if (result == null)
             {
                 return BadRequest();
+            } else if (result.Count() == 0)
+            {
+                return NotFound();
             }
 
             return Ok(result);
@@ -68,11 +66,27 @@ namespace TEAyudo.Controllers
         [HttpGet("Disponibilidad")]
         public async Task<ActionResult<IEnumerable<AcompananteDTO>>> GetAcompananteDisponibilidad(int Disponibilidad)
         {
-            var result = _filtro.FiltrarDisponibilidadSemanal(Disponibilidad);
+            List<AcompananteDTO> result = await _filtro.FiltrarDisponibilidadSemanal(Disponibilidad);
 
             if (result == null)
             {
                 return BadRequest();
+            } else if (result.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("Id")]
+        public async Task<ActionResult<IEnumerable<AcompananteDTO>>> GetAcompananteId(int Id)
+        {
+            AcompananteDTO result = await _filtro.FiltrarId(Id);
+
+            if (result == null)
+            {
+                return NotFound();
             }
 
             return Ok(result);
