@@ -33,11 +33,29 @@ namespace TEAyudo.Controllers
         }
 
 
-        [HttpPost] //listo, falta chequear con un tutor hardcodeado
-        public async Task<IActionResult> createPaciente(PacienteDTO paciente) 
+        [HttpPost] 
+        public async Task<IActionResult> createPaciente (PacienteDTO paciente) 
         {
             var result = await _service.createPaciente(paciente);
             return new JsonResult(result);
+        }
+
+
+        [HttpDelete]
+
+        public async Task<IActionResult> deletePaciente(int pacienteID) 
+        {
+            string mensaje = await _service.deletePaciente(pacienteID);
+            return new JsonResult(mensaje);
+        }
+
+
+        [HttpPut]
+
+        public async Task<IActionResult> updatePaciente(PacienteIdDTO paciente) 
+        {
+            string mensaje = await _service.updatePaciente(paciente);
+            return new JsonResult(mensaje);
         }
 
     }

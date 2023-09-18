@@ -32,8 +32,7 @@ namespace Application.UseCase.Pacientes
                 Sexo = pacienteDTO.Sexo,
                 TutorId = pacienteDTO.TutorId
             };
-            await _command.insertPaciente(paciente);
-            return paciente;
+            return await _command.insertPaciente(paciente);
         }
         public async Task<List<Paciente>> getAll() //listo pendiente de chequeo
         {
@@ -46,9 +45,26 @@ namespace Application.UseCase.Pacientes
             return paciente;
         }
 
-        public Task<Paciente> updatePaciente(int pacienteID) 
+        public async Task<string> deletePaciente(int pacienteID) 
         {
-            throw new NotImplementedException();
+            string mensaje = await _command.removePaciente(pacienteID);
+            return mensaje;
+        }
+
+        public async Task<string> updatePaciente(PacienteIdDTO pacienteID) 
+        {
+            Paciente paciente = new Paciente
+            {
+                PacienteId = pacienteID.PacienteId,
+                Nombre = pacienteID.Nombre,
+                Apellido = pacienteID.Apellido,
+                FechaNacimiento = pacienteID.FechaNacimiento,
+                DiagnosticoTEA = pacienteID.DiagnosticoTEA,
+                Sexo = pacienteID.Sexo,
+                TutorId = pacienteID.TutorId
+            };
+            string mensaje = await _command.updatePaciente(paciente);
+            return mensaje;
         }
 
 
