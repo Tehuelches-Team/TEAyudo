@@ -1,14 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace Domain.Entities
-
+﻿namespace TEAyudo.DTO
 {
-    public class Usuario
+    public class UsuarioDTO
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int UsuarioId { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string CorreoElectronico { get; set; }
@@ -17,7 +10,7 @@ namespace Domain.Entities
         public string Domicilio { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public int EstadoUsuarioId { get; set; }
-        public EstadoUsuario EstadoUsuario { get; set; }
+        public int UsuarioId { get; set; }
     }
 
 }

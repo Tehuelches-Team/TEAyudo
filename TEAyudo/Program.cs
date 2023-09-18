@@ -1,6 +1,5 @@
 
 using Domain;
-using Infraestructure;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using TEAyudo;

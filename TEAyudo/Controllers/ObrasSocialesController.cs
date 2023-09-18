@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
-using TEAyudo;
-using Application.UseCase.ObrasSociales;
 using TEAyudo.DTO;
 
 namespace TEAyudo.Controllers
@@ -23,7 +16,6 @@ namespace TEAyudo.Controllers
             _context = context;
         }
 
-        // GET: api/ObrasSociales
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ObraSocial>>> GetObrasSociales()
         {
@@ -31,15 +23,9 @@ namespace TEAyudo.Controllers
         }
 
 
-
-        // GET: api/ObraSocialws/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ObraSocial>> GetObraSocial(int id)
         {
-            if (_context.ObrasSociales == null)
-            {
-                return NotFound();
-            }
             var obraSocial = await _context.ObrasSociales.FindAsync(id);
 
             if (obraSocial == null)
@@ -50,15 +36,20 @@ namespace TEAyudo.Controllers
             return obraSocial;
         }
 
-        // PUT: api/ObraSocials/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutObraSocial(int id, ObraSocial obraSocial)
+        public async Task<IActionResult> PutObraSocial(int id, ObraSocialDTO obraSocialDTO)
         {
-            if (id != obraSocial.ObraSocialId)
+            if (id != obraSocialDTO.ObraSocialId)
             {
                 return BadRequest();
             }
+
+            var obraSocial = new ObraSocial
+            {
+                ObraSocialId = obraSocialDTO.ObraSocialId,
+                Nombre = obraSocialDTO.Nombre,
+                Descripcion = obraSocialDTO.Descripcion
+            };
 
             _context.Entry(obraSocial).State = EntityState.Modified;
 
@@ -81,7 +72,6 @@ namespace TEAyudo.Controllers
             return NoContent();
         }
 
-        // POST: api/ObraSociales
 
         [HttpPost]
         public async Task<ActionResult<ObraSocial>> PostObraSocial(ObraSocialDTO obraSocialDTO)
@@ -98,14 +88,10 @@ namespace TEAyudo.Controllers
             return CreatedAtAction("GetObraSocial", new { id = obraSocial.ObraSocialId }, obraSocial);
         }
 
-        // DELETE: api/ObraSocials/5
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteObraSocial(int id)
         {
-            if (_context.ObrasSociales == null)
-            {
-                return NotFound();
-            }
             var obraSocial = await _context.ObrasSociales.FindAsync(id);
             if (obraSocial == null)
             {
@@ -120,7 +106,7 @@ namespace TEAyudo.Controllers
 
         private bool ObraSocialExists(int id)
         {
-            return (_context.ObrasSociales?.Any(e => e.ObraSocialId == id)).GetValueOrDefault();
+            return _context.ObrasSociales.Any(e => e.ObraSocialId == id);
         }
     }
 }
