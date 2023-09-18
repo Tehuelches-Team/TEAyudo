@@ -19,13 +19,20 @@ namespace TEAyudo.Controllers
         }
 
         [HttpGet ("GetAll")]
-        public IActionResult Get() 
+        public async Task<IActionResult> GetAll() 
         {
-            var result = _service.getAll();
+            var result = await _service.getAll();
             return new JsonResult(result);
         }
 
-       
+        [HttpGet("GetById")]
+        public async Task<IActionResult> Get(int pacienteID)
+        {
+            var result = await _service.getById(pacienteID);
+            return new JsonResult(result);
+        }
+
+
         [HttpPost] //listo, falta chequear con un tutor hardcodeado
         public async Task<IActionResult> createPaciente(PacienteDTO paciente) 
         {

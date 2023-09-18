@@ -12,7 +12,7 @@ namespace Application.Interfaces
     {
         Task<Paciente> createPaciente(PacienteDTO paciente); //listo
         Task<List<Paciente>> getAll();
-        Task<Paciente> updatePaciente(int pacienteID);
         Task<Paciente> getById(int pacienteID);
+        Task<Paciente> updatePaciente(int pacienteID);
     }
 }

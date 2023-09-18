@@ -24,7 +24,8 @@ namespace Infraestructure.Querys
         }
         public async Task<Paciente> getPaciente(int pacienteID) 
         {
-            throw new NotImplementedException();
+            Paciente paciente = context.Pacientes.FirstOrDefault(p => p.PacienteId == pacienteID);
+            return paciente;
         }
     }
 }
