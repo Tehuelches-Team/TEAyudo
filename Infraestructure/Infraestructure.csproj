@@ -26,6 +26,8 @@
 
   <ItemGroup>
     <Folder Include="Commands\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Querys\" />
   </ItemGroup>
 
 </Project>

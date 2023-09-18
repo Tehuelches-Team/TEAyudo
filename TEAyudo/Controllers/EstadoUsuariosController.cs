@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Domain.Entities;
 using TEAyudo;
+using TEAyudo.DTO;
 
 namespace TEAyudo.Controllers
 {
@@ -21,26 +22,36 @@ namespace TEAyudo.Controllers
             _context = context;
         }
 
-        // GET: api/EstadoUsuarios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EstadoUsuario>>> GetEstadoUsuarios()
+        public async Task<ActionResult<IEnumerable<EstadoUsuarioDTO>>> GetEstadoUsuarios()
         {
-          if (_context.EstadoUsuarios == null)
-          {
-              return NotFound();
-          }
-            return await _context.EstadoUsuarios.ToListAsync();
+            var estadoUsuarios = await _context.EstadoUsuarios
+                .Select(e => new EstadoUsuarioDTO
+                {
+                    EstadoUsuarioId = e.EstadoUsuarioId,
+                    Descripcion = e.Descripcion
+                })
+                .ToListAsync();
+
+            if (estadoUsuarios == null)
+            {
+                return NotFound();
+            }
+
+            return estadoUsuarios;
         }
 
-        // GET: api/EstadoUsuarios/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<EstadoUsuario>> GetEstadoUsuario(int id)
+        public async Task<ActionResult<EstadoUsuarioDTO>> GetEstadoUsuario(int id)
         {
-          if (_context.EstadoUsuarios == null)
-          {
-              return NotFound();
-          }
-            var estadoUsuario = await _context.EstadoUsuarios.FindAsync(id);
+            var estadoUsuario = await _context.EstadoUsuarios
+                .Where(e => e.EstadoUsuarioId == id)
+                .Select(e => new EstadoUsuarioDTO
+                {
+                    EstadoUsuarioId = e.EstadoUsuarioId,
+                    Descripcion = e.Descripcion
+                })
+                .FirstOrDefaultAsync();
 
             if (estadoUsuario == null)
             {
@@ -50,15 +61,19 @@ namespace TEAyudo.Controllers
             return estadoUsuario;
         }
 
-        // PUT: api/EstadoUsuarios/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEstadoUsuario(int id, EstadoUsuario estadoUsuario)
+        public async Task<IActionResult> PutEstadoUsuario(int id, EstadoUsuarioDTO estadoUsuarioDTO)
         {
-            if (id != estadoUsuario.EstadoUsuarioId)
+            if (id != estadoUsuarioDTO.EstadoUsuarioId)
             {
                 return BadRequest();
             }
+
+            var estadoUsuario = new EstadoUsuario
+            {
+                EstadoUsuarioId = estadoUsuarioDTO.EstadoUsuarioId,
+                Descripcion = estadoUsuarioDTO.Descripcion
+            };
 
             _context.Entry(estadoUsuario).State = EntityState.Modified;
 
@@ -81,15 +96,14 @@ namespace TEAyudo.Controllers
             return NoContent();
         }
 
-        // POST: api/EstadoUsuarios
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<EstadoUsuario>> PostEstadoUsuario(EstadoUsuario estadoUsuario)
+        public async Task<ActionResult<EstadoUsuarioDTO>> PostEstadoUsuario(EstadoUsuarioDTO estadoUsuarioDTO)
         {
-          if (_context.EstadoUsuarios == null)
-          {
-              return Problem("Entity set 'TEAyudoContext.EstadoUsuarios'  is null.");
-          }
+            var estadoUsuario = new EstadoUsuario
+            {
+                Descripcion = estadoUsuarioDTO.Descripcion
+            };
+
             _context.EstadoUsuarios.Add(estadoUsuario);
             try
             {
@@ -107,17 +121,12 @@ namespace TEAyudo.Controllers
                 }
             }
 
-            return CreatedAtAction("GetEstadoUsuario", new { id = estadoUsuario.EstadoUsuarioId }, estadoUsuario);
+            return CreatedAtAction("GetEstadoUsuario", new { id = estadoUsuario.EstadoUsuarioId }, estadoUsuarioDTO);
         }
 
-        // DELETE: api/EstadoUsuarios/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEstadoUsuario(int id)
         {
-            if (_context.EstadoUsuarios == null)
-            {
-                return NotFound();
-            }
             var estadoUsuario = await _context.EstadoUsuarios.FindAsync(id);
             if (estadoUsuario == null)
             {
@@ -132,7 +141,7 @@ namespace TEAyudo.Controllers
 
         private bool EstadoUsuarioExists(int id)
         {
-            return (_context.EstadoUsuarios?.Any(e => e.EstadoUsuarioId == id)).GetValueOrDefault();
+            return _context.EstadoUsuarios.Any(e => e.EstadoUsuarioId == id);
         }
     }
 }

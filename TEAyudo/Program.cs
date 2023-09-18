@@ -3,8 +3,6 @@ using Application.Interfaces;
 using Application.Interfaces.Aplication;
 using Application.UseCase.Filtros;
 using Domain;
-using Infraestructure;
-using Infraestructure.Querys;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using TEAyudo;
