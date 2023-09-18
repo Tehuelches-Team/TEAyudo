@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using TEAyudo.DTO;
+using Tools;
 
 namespace TEAyudo.Controllers
 {
@@ -52,11 +53,13 @@ namespace TEAyudo.Controllers
                 Domicilio = usuarioDTO.Domicilio,
                 FechaNacimiento = usuarioDTO.FechaNacimiento,
                 EstadoUsuarioId = usuarioDTO.EstadoUsuarioId,
-                Token = usuarioDTO.Token
+                Token = Token.GenerarToken()
             };
+
 
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
+            await VerificacionRegistro.EnviarToken(usuario);
 
             return CreatedAtAction("GetUsuario", new { id = usuario.UsuarioId }, usuario);
         }
