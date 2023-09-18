@@ -1,7 +1,7 @@
 ﻿namespace TEAyudo.DTO
 {
     public class AcompananteDTO 
-    {
+    { //Se utiliza en los geters de acompanante para lograr mostrar los datos más relevantes
         public int AcompananteId { get; set; }
         public string ZonaLaboral { get; set; }
         public string Contacto { get; set; }

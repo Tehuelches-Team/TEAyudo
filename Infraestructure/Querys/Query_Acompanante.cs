@@ -20,7 +20,7 @@ namespace Infraestructure.Querys
             _context = context;
         }
 
-        List<AcompananteDTO> IConsulta.GetAcompananteDTO() => (from Acompanante in _context.Acompanantes
+        List<AcompananteDTO> IConsulta.GetAcompananteDTO() => (from Acompanante in _context.Acompanantes //Se crean los DTOS para los Acompanantes utilizados en los gets por filtros. 
                                                                      join ObrasSocial in _context.ObrasSociales on Acompanante.ObraSocialId equals ObrasSocial.ObraSocialId
                                                                      join Especialidad in _context.Especialidades on Acompanante.EspecialidadId equals Especialidad.EspecialidadId
                                                                      join Disponibilidad in _context.DisponibilidadesSemanales on Acompanante.DisponibilidadSemanalId equals Disponibilidad.DisponibilidadSemanalId

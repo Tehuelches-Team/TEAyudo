@@ -2,7 +2,7 @@
 
 namespace Application.Interfaces.Aplication
 {
-    public interface IFiltro
+    public interface IFiltroAcompanante
     {
         Task<List<AcompananteDTO>> FiltarObraSocial(string nombre);
         Task<List<AcompananteDTO>> FiltarEspecialidad(string Especialidad);

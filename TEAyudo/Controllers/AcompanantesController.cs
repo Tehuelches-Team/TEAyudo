@@ -9,8 +9,8 @@ namespace TEAyudo.Controllers
     [ApiController]
     public class AcompanantesController : Controller
     {
-        private readonly IFiltro _filtro;
-        public AcompanantesController(IFiltro filtro)
+        private readonly IFiltroAcompanante _filtro;
+        public AcompanantesController(IFiltroAcompanante filtro)
         {
             _filtro = filtro;
         }

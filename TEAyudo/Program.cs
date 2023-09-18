@@ -26,8 +26,8 @@ builder.Services.AddDbContext<TEAyudoContext>(options =>
 });
 
 
-builder.Services.AddTransient<IFiltro, Filtro>();
-builder.Services.AddTransient<IConsulta, Query_Acompanante>();
+builder.Services.AddTransient<IFiltroAcompanante, FiltroAcompanante>(); //Inyecciones de dependencias para los 
+builder.Services.AddTransient<IConsulta, Query_Acompanante>();          //gets de acompananteDTO
 
 
 var app = builder.Build();
