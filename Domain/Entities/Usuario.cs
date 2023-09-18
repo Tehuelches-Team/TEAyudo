@@ -18,6 +18,7 @@ namespace Domain.Entities
         public DateTime FechaNacimiento { get; set; }
         public int EstadoUsuarioId { get; set; }
         public EstadoUsuario EstadoUsuario { get; set; }
+        public string Token { get; set; }
     }
 
 }

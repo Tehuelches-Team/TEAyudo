@@ -160,6 +160,7 @@ namespace Infraestructure.Migrations
             modelBuilder.Entity("Domain.Entities.EstadoUsuario", b =>
                 {
                     b.Property<int>("EstadoUsuarioId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
@@ -322,6 +323,10 @@ namespace Infraestructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

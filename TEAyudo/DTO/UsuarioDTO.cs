@@ -11,6 +11,7 @@
         public DateTime FechaNacimiento { get; set; }
         public int EstadoUsuarioId { get; set; }
         public int UsuarioId { get; set; }
+        public string Token { get; set; }
     }
 
 }
