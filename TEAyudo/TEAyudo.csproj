@@ -24,10 +24,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Infraestructure\Infraestructure.csproj" />
     <ProjectReference Include="..\Tools\Tools.csproj" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\Infraestructure\Infraestructure.csproj" />
   </ItemGroup>
 
 </Project>
