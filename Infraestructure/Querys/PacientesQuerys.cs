@@ -5,16 +5,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TEAyudo;
 
 namespace Infraestructure.Querys
 {
     public class PacientesQuerys : IPacientesQuerys
     {
-        public List<Paciente> getListPacientes() 
+        private readonly TEAyudoContext context;
+
+        public PacientesQuerys(TEAyudoContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
         }
-        public Paciente getPaciente(int pacienteID) 
+        public async Task<List<Paciente>> getListPacientes() 
+        {
+            List<Paciente> list = context.Pacientes.ToList();
+            return list;
+        }
+        public async Task<Paciente> getPaciente(int pacienteID) 
         {
             throw new NotImplementedException();
         }

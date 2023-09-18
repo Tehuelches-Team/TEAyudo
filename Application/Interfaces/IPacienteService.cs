@@ -11,8 +11,8 @@ namespace Application.Interfaces
     public interface IPacienteService
     {
         Task<Paciente> createPaciente(PacienteDTO paciente); //listo
-        Task<Paciente> updatePaciente(int pacienteID);
         Task<List<Paciente>> getAll();
+        Task<Paciente> updatePaciente(int pacienteID);
         Task<Paciente> getById(int pacienteID);
     }
 }

@@ -9,7 +9,7 @@ namespace Application.Interfaces
 {
     public interface IPacientesQuerys
     {
-        public List<Paciente> getListPacientes();
-        public Paciente getPaciente(int pacienteID);
+        public Task<List<Paciente>> getListPacientes();
+        public Task<Paciente> getPaciente(int pacienteID);
     }
 }

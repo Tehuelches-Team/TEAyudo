@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace Application.UseCase.Pacientes
             _querys = querys;
         }
 
-        public async Task<Paciente> createPaciente(PacienteDTO pacienteDTO)  //listo
+        public async Task<Paciente> createPaciente(PacienteDTO pacienteDTO) 
         {
             Paciente paciente = new Paciente
             {
@@ -40,9 +41,10 @@ namespace Application.UseCase.Pacientes
             throw new NotImplementedException();
         }
 
-        public Task<List<Paciente>> getAll() 
+        public async Task<List<Paciente>> getAll()
         {
-            throw new NotImplementedException ();
+            List<Paciente> list = await _querys.getListPacientes();
+            return list;
         }
 
         public Task<Paciente> getById(int pacienteID) 
