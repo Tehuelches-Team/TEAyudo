@@ -17,7 +17,7 @@ namespace TEAyudo.Controllers
         }
 
         [HttpGet("ObraSocial")]
-        public async Task<ActionResult<IEnumerable<AcompananteDTO>>> GetAcompanante(string ObraSocial)
+        public async Task<ActionResult<IEnumerable<Acompanante>>> GetAcompanante(string ObraSocial)
         {
             /*var result = _context.Acompanantes.Include(s => s.ObrasSociales.Where(s => s.Nombre == ObraSocial))
                 .Include(s => s.DisponibilidadesSemanales)

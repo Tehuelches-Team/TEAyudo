@@ -1,5 +1,4 @@
-﻿using Application.UseCase.Response;
-using Domain.Entities;
+﻿using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +10,9 @@ namespace Application.Interfaces.Aplication
 {
     public interface IFiltro
     {
-        Task<List<AcompananteDTO>> FiltarObraSocial(string nombre);
-        Task<List<AcompananteDTO>> FiltarEspecialidad(string Especialidad);
-        Task<List<AcompananteDTO>> FiltrarDisponibilidadSemanal(int Dia);
-        Task<List<AcompananteDTO>> FiltarZonaLaboral(string ZonaLaboral);
+        Task<List<Acompanante>> FiltarObraSocial(string nombre);
+        Task<List<Acompanante>> FiltarEspecialidad(string Especialidad);
+        Task<List<Acompanante>> FiltrarDisponibilidadSemanal(int Dia);
+        Task<List<Acompanante>> FiltarZonaLaboral(string ZonaLaboral);
     }
 }

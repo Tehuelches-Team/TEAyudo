@@ -2,6 +2,8 @@
 {
     public class AcompananteDTO 
     {
+        public int AcompananteId { get; set; }
+        public int UsuarioId { get; set; }
         public string ZonaLaboral { get; set; }
         public string Contacto { get; set; }
         public string Documentacion { get; set; }

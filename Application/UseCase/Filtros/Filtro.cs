@@ -1,6 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.Interfaces.Aplication;
-using Application.UseCase.Response;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +19,13 @@ namespace Application.UseCase.Filtros
             _consultor = consultor;
         }
 
-        async Task<List<AcompananteDTO>> IFiltro.FiltarEspecialidad(string Especialidad)
+        async Task<List<Acompanante>> IFiltro.FiltarEspecialidad(string Especialidad)
         {
-            List<AcompananteDTO> acompanante = _consultor.GetAcompananteDTO().Where(s => s.Especialidad_Descripcion == Especialidad).ToList();
+            List<Acompanante> acompanante = await _consultor.GetEspecialidad(Especialidad);
             return acompanante;
         }
 
-        async Task<List<AcompananteDTO>> IFiltro.FiltarObraSocial(string nombre)
+        async Task<List<Acompanante>> IFiltro.FiltarObraSocial(string nombre)
         {
             /*var Acompanante = _consultor.GetObraSocial(id);
             return Task.FromResult(new AcompananteResponse
@@ -41,20 +41,20 @@ namespace Application.UseCase.Filtros
                 Experiencia = Acompanante.Experiencia,
                 DisponibilidadSemanalId = Acompanante.DisponibilidadSemanalId
             });*/
-            List<AcompananteDTO> acompanante = _consultor.GetAcompananteDTO().Where(s => s.NombreObraSocial==nombre).ToList();
+            List<Acompanante> acompanante = await _consultor.GetObraSocial(nombre);
             //Acompanante.where(p => p.Titulo.Contains(peli)).ToList();
             return acompanante;
         }
 
-        async Task<List<AcompananteDTO>> IFiltro.FiltarZonaLaboral(string ZonaLaboral)
+        async Task<List<Acompanante>> IFiltro.FiltarZonaLaboral(string ZonaLaboral)
         {
-            List<AcompananteDTO> acompanante = _consultor.GetAcompananteDTO().Where(s => s.ZonaLaboral == ZonaLaboral).ToList();
+            List<Acompanante> acompanante = await _consultor.GetZonaLaboral(ZonaLaboral);
             return acompanante;
         }
 
-        async Task<List<AcompananteDTO>> IFiltro.FiltrarDisponibilidadSemanal(int Dia)
+        async Task<List<Acompanante>> IFiltro.FiltrarDisponibilidadSemanal(int Dia)
         {
-            List<AcompananteDTO> acompanante = _consultor.GetAcompananteDTO().Where(s => s.DiaSemana == Dia).ToList();
+            List<Acompanante> acompanante = await _consultor.GetDisponibilidad(Dia);
             return acompanante;
         }
     }
