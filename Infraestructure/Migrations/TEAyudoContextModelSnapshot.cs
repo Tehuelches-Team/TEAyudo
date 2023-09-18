@@ -160,7 +160,6 @@ namespace Infraestructure.Migrations
             modelBuilder.Entity("Domain.Entities.EstadoUsuario", b =>
                 {
                     b.Property<int>("EstadoUsuarioId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
