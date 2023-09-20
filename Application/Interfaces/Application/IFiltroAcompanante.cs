@@ -9,7 +9,6 @@ namespace Application.Interfaces.Aplication
         Task<List<AcompananteDTO>> FiltrarDisponibilidadSemanal(int? disponibilidad, List<AcompananteDTO> result);
         Task<List<AcompananteDTO>> FiltarZonaLaboral(string Id, List<AcompananteDTO> result);
         Task<AcompananteDTO> FiltrarId(int? Id, List<AcompananteDTO> result);
-
-        Task<List<AcompananteDTO>> Recuperar();
+        Task<List<AcompananteDTO>> RecuperarTodos();
     }
 }
