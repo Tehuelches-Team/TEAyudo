@@ -4,10 +4,12 @@ namespace Application.Interfaces.Aplication
 {
     public interface IFiltroAcompanante
     {
-        Task<List<AcompananteDTO>> FiltarObraSocial(string nombre);
-        Task<List<AcompananteDTO>> FiltarEspecialidad(string Especialidad);
-        Task<List<AcompananteDTO>> FiltrarDisponibilidadSemanal(int Dia);
-        Task<List<AcompananteDTO>> FiltarZonaLaboral(string ZonaLaboral);
-        Task<AcompananteDTO> FiltrarId(int Id);
+        Task<List<AcompananteDTO>> FiltarObraSocial(int? Id, List<AcompananteDTO> result);
+        Task<List<AcompananteDTO>> FiltarEspecialidad(int? Id, List<AcompananteDTO> result);
+        Task<List<AcompananteDTO>> FiltrarDisponibilidadSemanal(int? disponibilidad, List<AcompananteDTO> result);
+        Task<List<AcompananteDTO>> FiltarZonaLaboral(string Id, List<AcompananteDTO> result);
+        Task<AcompananteDTO> FiltrarId(int? Id, List<AcompananteDTO> result);
+
+        Task<List<AcompananteDTO>> Recuperar();
     }
 }

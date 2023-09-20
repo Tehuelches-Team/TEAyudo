@@ -27,6 +27,9 @@ namespace Infraestructure.Querys
                                                                      select new AcompananteDTO
                                                                      {
                                                                          AcompananteId = Acompanante.AcompananteId,
+                                                                         ObraSocialId = ObrasSocial.ObraSocialId,
+                                                                         EspecialidadId = Especialidad.EspecialidadId,
+                                                                         DisponibilidadSemanalId= Disponibilidad.DisponibilidadSemanalId,
                                                                          Contacto = Acompanante.Contacto,
                                                                          Documentacion = Acompanante.Documentacion,
                                                                          Experiencia = Acompanante.Experiencia,

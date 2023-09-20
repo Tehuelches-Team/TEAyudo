@@ -3,6 +3,9 @@
     public class AcompananteDTO 
     { //Se utiliza en los geters de acompanante para lograr mostrar los datos más relevantes
         public int AcompananteId { get; set; }
+        public int ObraSocialId { get; set; }
+        public int EspecialidadId { get; set; }
+        public int DisponibilidadSemanalId { get; set; }
         public string ZonaLaboral { get; set; }
         public string Contacto { get; set; }
         public string Documentacion { get; set; }
