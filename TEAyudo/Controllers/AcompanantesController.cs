@@ -17,7 +17,7 @@ namespace TEAyudo.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Acompanante>>> GetAcompanante([FromQuery] int? ObraSocial = null, [FromQuery] string ZonaLaboral = null, [FromQuery] int? Especialidad = null, [FromQuery] int? Disponibilidad = null, [FromQuery] int? Id = null)
+        public async Task<ActionResult<IEnumerable<Acompanante>>> GetAcompanante(int? ObraSocial = null,string ZonaLaboral = null,int? Especialidad = null,int? Disponibilidad = null,int? Id = null)
         {
             List<AcompananteDTO> result = await _filtro.Recuperar();
 
@@ -41,17 +41,22 @@ namespace TEAyudo.Controllers
                 result = await _filtro.FiltrarDisponibilidadSemanal(Disponibilidad, result);
             }
 
+            if (Id > 0)
+            {
+                AcompananteDTO acom = await _filtro.FiltrarId(Id, result);
+                if (acom != null)
+                {
+                    return Ok(acom);
+                }
+                else return NotFound();
+            }
+
             if (!result.Any())
             {
                 return NotFound();
             }
 
             return Ok(result);
-            
-            //if (Id > 0)
-            //{
-            //    result = await _filtro.FiltrarId(Id);
-            //}
         }
 
 

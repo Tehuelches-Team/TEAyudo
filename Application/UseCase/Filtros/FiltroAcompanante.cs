@@ -45,8 +45,7 @@ namespace Application.UseCase.Filtros
 
         async Task<AcompananteDTO> IFiltroAcompanante.FiltrarId(int? Id, List<AcompananteDTO> result)
         {
-            List<AcompananteDTO> acompanante = result.ToList();
-            return acompanante.FirstOrDefault(s => s.AcompananteId == Id);
+            return result.FirstOrDefault(s => s.AcompananteId == Id);
         }
 
     }
