@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.Interfaces.Aplication;
+using Application.UseCase.DTO;
 using Domain.Entities;
 using TEAyudo.DTO;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -15,13 +16,13 @@ namespace Application.UseCase.Filtros
             _consultor = consultor;
         }
 
-        async Task<List<AcompananteDTO>> IFiltroAcompanante.RecuperarTodos()
+        async Task<List<RegistrosAcompanantesDTO>> IFiltroAcompanante.RecuperarTodos()
         {
-            List<AcompananteDTO> acompanante = _consultor.GetAcompananteDTO();
+            List<RegistrosAcompanantesDTO> acompanante = _consultor.GetAcompananteDTO();
             return acompanante;
         }
 
-        async Task<AcompananteDTO> IFiltroAcompanante.FiltrarId(int? Id, List<AcompananteDTO> result)
+        async Task<RegistrosAcompanantesDTO> IFiltroAcompanante.FiltrarId(int? Id, List<RegistrosAcompanantesDTO> result)
         {
             if (result.Count() == 0 && Id!= null)
             {
@@ -30,7 +31,7 @@ namespace Application.UseCase.Filtros
             return result.FirstOrDefault(s => s.AcompananteId == Id);
         }
 
-        async Task<List<AcompananteDTO>> IFiltroAcompanante.FiltarEspecialidad(int? Especialidad , List<AcompananteDTO> result)
+        async Task<List<RegistrosAcompanantesDTO>> IFiltroAcompanante.FiltarEspecialidad(int? Especialidad , List<RegistrosAcompanantesDTO> result)
         {
             if (result.Count() == 0 && Especialidad != null)
             {
@@ -39,12 +40,12 @@ namespace Application.UseCase.Filtros
             }
             else
             {
-                result = result.Where(s => s.EspecialidadId == Especialidad).ToList();  //Excepcion al poner ID 4
+                result = result.Where(s => s.EspecialidadId == Especialidad).ToList(); 
                 return result;
             }
         }
 
-        async Task<List<AcompananteDTO>> IFiltroAcompanante.FiltrarDisponibilidadSemanal(int? Dia, List<AcompananteDTO> result)
+        async Task<List<RegistrosAcompanantesDTO>> IFiltroAcompanante.FiltrarDisponibilidadSemanal(int? Dia, List<RegistrosAcompanantesDTO> result)
         {
             if (result.Count() == 0 && Dia != null)
             {
@@ -58,7 +59,7 @@ namespace Application.UseCase.Filtros
             }
         }
 
-        async Task<List<AcompananteDTO>> IFiltroAcompanante.FiltarObraSocial(int? nombre , List<AcompananteDTO> result)
+        async Task<List<RegistrosAcompanantesDTO>> IFiltroAcompanante.FiltarObraSocial(int? nombre , List<RegistrosAcompanantesDTO> result)
         {
             if (result.Count() == 0 && nombre != null)
             {
@@ -72,7 +73,7 @@ namespace Application.UseCase.Filtros
             }
         }
 
-        async Task<List<AcompananteDTO>> IFiltroAcompanante.FiltarZonaLaboral(string ZonaLaboral, List<AcompananteDTO> result)
+        async Task<List<RegistrosAcompanantesDTO>> IFiltroAcompanante.FiltarZonaLaboral(string ZonaLaboral, List<RegistrosAcompanantesDTO> result)
         {
             if (result.Count() == 0 && ZonaLaboral != null)
             {

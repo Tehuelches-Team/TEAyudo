@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.UseCase.DTO;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,14 +21,14 @@ namespace Infraestructure.Querys
             _context = context;
         }
 
-        List<AcompananteDTO> IConsulta.GetAcompananteDTOId(int? _id, List<AcompananteDTO> acompanantes)
+        List<RegistrosAcompanantesDTO> IConsulta.GetAcompananteDTOId(int? _id, List<RegistrosAcompanantesDTO> acompanantes)
         {
                 acompanantes = (from Acompanante in _context.Acompanantes //Se crean los DTOS para los Acompanantes utilizados en los gets por filtros. 
                                 join ObrasSocial in _context.ObrasSociales on Acompanante.ObraSocialId equals ObrasSocial.ObraSocialId
                                 join Especialidad in _context.Especialidades on Acompanante.EspecialidadId equals Especialidad.EspecialidadId
                                 join Disponibilidad in _context.DisponibilidadesSemanales on Acompanante.DisponibilidadSemanalId equals Disponibilidad.DisponibilidadSemanalId
                                 where Acompanante.AcompananteId == _id
-                                select new AcompananteDTO
+                                select new RegistrosAcompanantesDTO
                                 {
                                     AcompananteId = Acompanante.AcompananteId,
                                     ObraSocialId = ObrasSocial.ObraSocialId,
@@ -46,14 +47,14 @@ namespace Infraestructure.Querys
                                 }).ToList();
                 return acompanantes;
         }
-        List<AcompananteDTO> IConsulta.GetAcompananteDTOEspecialidad(int? _Especialidad, List<AcompananteDTO> acompanantes)
+        List<RegistrosAcompanantesDTO> IConsulta.GetAcompananteDTOEspecialidad(int? _Especialidad, List<RegistrosAcompanantesDTO> acompanantes)
         {
                 acompanantes = (from Acompanante in _context.Acompanantes //Se crean los DTOS para los Acompanantes utilizados en los gets por filtros. 
                                 join ObrasSocial in _context.ObrasSociales on Acompanante.ObraSocialId equals ObrasSocial.ObraSocialId
                                 join Especialidad in _context.Especialidades on Acompanante.EspecialidadId equals Especialidad.EspecialidadId
                                 join Disponibilidad in _context.DisponibilidadesSemanales on Acompanante.DisponibilidadSemanalId equals Disponibilidad.DisponibilidadSemanalId
                                 where Especialidad.EspecialidadId == _Especialidad
-                                select new AcompananteDTO
+                                select new RegistrosAcompanantesDTO
                                 {
                                     AcompananteId = Acompanante.AcompananteId,
                                     ObraSocialId = ObrasSocial.ObraSocialId,
@@ -73,14 +74,14 @@ namespace Infraestructure.Querys
                 return acompanantes;
         }
 
-        List<AcompananteDTO> IConsulta.GetAcompananteDTODisponibilidad(int? _Disponibilidad, List<AcompananteDTO> acompanantes)
+        List<RegistrosAcompanantesDTO> IConsulta.GetAcompananteDTODisponibilidad(int? _Disponibilidad, List<RegistrosAcompanantesDTO> acompanantes)
         {
                 acompanantes = (from Acompanante in _context.Acompanantes //Se crean los DTOS para los Acompanantes utilizados en los gets por filtros. 
                 join ObrasSocial in _context.ObrasSociales on Acompanante.ObraSocialId equals ObrasSocial.ObraSocialId
                 join Especialidad in _context.Especialidades on Acompanante.EspecialidadId equals Especialidad.EspecialidadId
                 join Disponibilidad in _context.DisponibilidadesSemanales on Acompanante.DisponibilidadSemanalId equals Disponibilidad.DisponibilidadSemanalId
                 where Disponibilidad.DisponibilidadSemanalId== _Disponibilidad
-                select new AcompananteDTO
+                select new RegistrosAcompanantesDTO
                 {
                     AcompananteId = Acompanante.AcompananteId,
                     ObraSocialId = ObrasSocial.ObraSocialId,
@@ -100,14 +101,14 @@ namespace Infraestructure.Querys
             return acompanantes;
         }
 
-        List<AcompananteDTO> IConsulta.GetAcompananteDTOObraSocial(int? _ObraSocial, List<AcompananteDTO> acompanantes)
+        List<RegistrosAcompanantesDTO> IConsulta.GetAcompananteDTOObraSocial(int? _ObraSocial, List<RegistrosAcompanantesDTO> acompanantes)
         {
                 acompanantes = (from Acompanante in _context.Acompanantes //Se crean los DTOS para los Acompanantes utilizados en los gets por filtros. 
                                 join ObrasSocial in _context.ObrasSociales on Acompanante.ObraSocialId equals ObrasSocial.ObraSocialId
                                 join Especialidad in _context.Especialidades on Acompanante.EspecialidadId equals Especialidad.EspecialidadId
                                 join Disponibilidad in _context.DisponibilidadesSemanales on Acompanante.DisponibilidadSemanalId equals Disponibilidad.DisponibilidadSemanalId
                                 where ObrasSocial.ObraSocialId == _ObraSocial
-                                select new AcompananteDTO
+                                select new RegistrosAcompanantesDTO
                                 {
                                     AcompananteId = Acompanante.AcompananteId,
                                     ObraSocialId = ObrasSocial.ObraSocialId,
@@ -127,14 +128,14 @@ namespace Infraestructure.Querys
                 return acompanantes;
         }
 
-        List<AcompananteDTO> IConsulta.GetAcompananteDTOZonaLaboral(string _ZonaLaboral, List<AcompananteDTO> acompanantes)
+        List<RegistrosAcompanantesDTO> IConsulta.GetAcompananteDTOZonaLaboral(string _ZonaLaboral, List<RegistrosAcompanantesDTO> acompanantes)
         {
                 acompanantes = (from Acompanante in _context.Acompanantes //Se crean los DTOS para los Acompanantes utilizados en los gets por filtros. 
                                 join ObrasSocial in _context.ObrasSociales on Acompanante.ObraSocialId equals ObrasSocial.ObraSocialId
                                 join Especialidad in _context.Especialidades on Acompanante.EspecialidadId equals Especialidad.EspecialidadId
                                 join Disponibilidad in _context.DisponibilidadesSemanales on Acompanante.DisponibilidadSemanalId equals Disponibilidad.DisponibilidadSemanalId
                                 where Acompanante.ZonaLaboral.Contains(_ZonaLaboral) //Ojo con el problema de las mayúsculas
-                                select new AcompananteDTO
+                                select new RegistrosAcompanantesDTO
                                 {
                                     AcompananteId = Acompanante.AcompananteId,
                                     ObraSocialId = ObrasSocial.ObraSocialId,
@@ -154,11 +155,11 @@ namespace Infraestructure.Querys
                 return acompanantes;
         }
 
-        List<AcompananteDTO> IConsulta.GetAcompananteDTO() => (from Acompanante in _context.Acompanantes //Se crean los DTOS para los Acompanantes utilizados en los gets por filtros. 
+        List<RegistrosAcompanantesDTO> IConsulta.GetAcompananteDTO() => (from Acompanante in _context.Acompanantes //Se crean los DTOS para los Acompanantes utilizados en los gets por filtros. 
                                                                      join ObrasSocial in _context.ObrasSociales on Acompanante.ObraSocialId equals ObrasSocial.ObraSocialId
                                                                      join Especialidad in _context.Especialidades on Acompanante.EspecialidadId equals Especialidad.EspecialidadId
                                                                      join Disponibilidad in _context.DisponibilidadesSemanales on Acompanante.DisponibilidadSemanalId equals Disponibilidad.DisponibilidadSemanalId
-                                                                     select new AcompananteDTO
+                                                                     select new RegistrosAcompanantesDTO
                                                                      {
                                                                          AcompananteId = Acompanante.AcompananteId,
                                                                          ObraSocialId = ObrasSocial.ObraSocialId,

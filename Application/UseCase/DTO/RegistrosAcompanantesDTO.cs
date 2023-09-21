@@ -1,7 +1,17 @@
-﻿namespace TEAyudo.DTO
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Application.UseCase.DTO
 {
-    public class AcompananteDTO 
-    { //Se utiliza en los geters de acompanante para lograr mostrar los datos más relevantes
+    public class RegistrosAcompanantesDTO
+    {
+        public int AcompananteId { get; set; }
+        public int ObraSocialId { get; set; }
+        public int EspecialidadId { get; set; }
+        public int DisponibilidadSemanalId { get; set; }
         public string ZonaLaboral { get; set; }
         public string Contacto { get; set; }
         public string Documentacion { get; set; }

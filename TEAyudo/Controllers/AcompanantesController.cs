@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces.Aplication;
+using Application.UseCase.DTO;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -17,14 +18,14 @@ namespace TEAyudo.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Acompanante>>> GetAcompanante(int? Id = null, int? Especialidad = null, int? Disponibilidad = null, int? ObraSocial = null,string ZonaLaboral = null)
+        public async Task<ActionResult<IEnumerable<AcompananteDTO>>> GetAcompanante(int? Id = null, int? Especialidad = null, int? Disponibilidad = null, int? ObraSocial = null,string ZonaLaboral = null)
         {
-            List<AcompananteDTO> result = new List<AcompananteDTO>();
+            List<RegistrosAcompanantesDTO> result = new List<RegistrosAcompanantesDTO>();
             bool controlador=true;
 
             if (Id > 0)
             {
-                AcompananteDTO acom = await _filtro.FiltrarId(Id, result);
+                RegistrosAcompanantesDTO acom = await _filtro.FiltrarId(Id, result);
                 if (acom!= null)
                 {
                     result.Add(acom);
@@ -63,10 +64,32 @@ namespace TEAyudo.Controllers
 
             if (!result.Any())
             {
-                return NotFound();
+                return NotFound("No se encuentran acompañantes con los requisitos buscados");
+            }
+            else
+            {
+                List<AcompananteDTO> entrega = new List<AcompananteDTO>();
+                foreach (var acom in result)
+                {
+                    entrega.Add(new AcompananteDTO
+                    {
+                        Contacto = acom.Contacto,
+                        Documentacion = acom.Documentacion,
+                        Experiencia = acom.Experiencia,
+                        ZonaLaboral = acom.ZonaLaboral,
+                        NombreObraSocial = acom.NombreObraSocial,
+                        ObraSocial_Descripcion = acom.ObraSocial_Descripcion,
+                        Especialidad_Descripcion = acom.Especialidad_Descripcion,
+                        DiaSemana = acom.DiaSemana,
+                        HorarioInicio = acom.HorarioInicio,
+                        HorarioFin = acom.HorarioFin
+                    });
+                }
+                return Ok(entrega);
             }
 
-            return Ok(result);
+
+
         }
     }
 }

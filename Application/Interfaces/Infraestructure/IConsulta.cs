@@ -1,14 +1,15 @@
-﻿using TEAyudo.DTO;
+﻿using Application.UseCase.DTO;
+using TEAyudo.DTO;
 
 namespace Application.Interfaces
 {
     public interface IConsulta
     {
-        List<AcompananteDTO> GetAcompananteDTO();
-        List<AcompananteDTO> GetAcompananteDTOId(int? id, List<AcompananteDTO> acompanantes);
-        List<AcompananteDTO> GetAcompananteDTOEspecialidad(int? Especialidad, List<AcompananteDTO> acompanantes);
-        List<AcompananteDTO> GetAcompananteDTODisponibilidad(int? Disponibilidad, List<AcompananteDTO> acompanantes);
-        List<AcompananteDTO> GetAcompananteDTOObraSocial(int? ObraSocial, List<AcompananteDTO> acompanantes);
-        List<AcompananteDTO> GetAcompananteDTOZonaLaboral(string ZonaLaboral, List<AcompananteDTO> acompanantes);
+        List<RegistrosAcompanantesDTO> GetAcompananteDTO();
+        List<RegistrosAcompanantesDTO> GetAcompananteDTOId(int? id, List<RegistrosAcompanantesDTO> acompanantes);
+        List<RegistrosAcompanantesDTO> GetAcompananteDTOEspecialidad(int? Especialidad, List<RegistrosAcompanantesDTO> acompanantes);
+        List<RegistrosAcompanantesDTO> GetAcompananteDTODisponibilidad(int? Disponibilidad, List<RegistrosAcompanantesDTO> acompanantes);
+        List<RegistrosAcompanantesDTO> GetAcompananteDTOObraSocial(int? ObraSocial, List<RegistrosAcompanantesDTO> acompanantes);
+        List<RegistrosAcompanantesDTO> GetAcompananteDTOZonaLaboral(string ZonaLaboral, List<RegistrosAcompanantesDTO> acompanantes);
     }
 }
