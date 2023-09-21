@@ -20,29 +20,38 @@ namespace TEAyudo.Controllers
         public async Task<ActionResult<IEnumerable<Acompanante>>> GetAcompanante(int? Id = null, int? Especialidad = null, int? Disponibilidad = null, int? ObraSocial = null,string ZonaLaboral = null)
         {
             List<AcompananteDTO> result = new List<AcompananteDTO>();
+            bool controlador=true;
 
             if (Id > 0)
             {
                 AcompananteDTO acom = await _filtro.FiltrarId(Id, result);
-                result.Add(acom);
+                if (acom!= null)
+                {
+                    result.Add(acom);
+                }
+                else controlador = false;
+
             }
 
-            if (Especialidad != null)
+            if (Especialidad != null && controlador)
             {
                 result = await _filtro.FiltarEspecialidad(Especialidad, result);
+                if (result.Count() == 0) controlador = false;
             }
 
-            if (Disponibilidad != null)
+            if (Disponibilidad != null && controlador)
             {
                 result = await _filtro.FiltrarDisponibilidadSemanal(Disponibilidad, result);
+                if (result.Count() == 0) controlador = false;
             }
 
-            if (ObraSocial != null) 
+            if (ObraSocial != null && controlador) 
             {
                 result = await _filtro.FiltarObraSocial(ObraSocial,result);
+                if (result.Count() == 0) controlador = false;
             }
 
-            if (ZonaLaboral != null)
+            if (ZonaLaboral != null && controlador)
             {
                 result = await _filtro.FiltarZonaLaboral(ZonaLaboral, result);
             }

@@ -39,7 +39,7 @@ namespace Application.UseCase.Filtros
             }
             else
             {
-                result = result.Where(s => s.EspecialidadId == Especialidad).ToList(); 
+                result = result.Where(s => s.EspecialidadId == Especialidad).ToList();  //Excepcion al poner ID 4
                 return result;
             }
         }
