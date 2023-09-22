@@ -1,4 +1,5 @@
 ﻿
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -77,7 +78,8 @@ namespace Infraestructure.Migrations
                     FotoPerfil = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Domicilio = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EstadoUsuarioId = table.Column<int>(type: "int", nullable: false)
+                    EstadoUsuarioId = table.Column<int>(type: "int", nullable: false),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -347,7 +349,7 @@ namespace Infraestructure.Migrations
                 values: new object[] { "Bloqueado" });
             migrationBuilder.InsertData(
                table: "Usuarios",
-               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechaNacimiento", "EstadoUsuarioId" },
+               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechaNacimiento", "EstadoUsuarioId", "Token" },
                values: new object[] {  "Ariel",
                                         "Ortiz",
                                         "aortiz@yopmail.com",
@@ -355,11 +357,12 @@ namespace Infraestructure.Migrations
                                         "/user/img/arielortiz.jpg" ,
                                         "Montevideo 600" ,
                                         "1980/10/01",
-                                        "2"});
+                                        "2",
+                                        "EJzGKfVlNrAqwSt9PoL8Y3D4R5I6S7A1" });
 
             migrationBuilder.InsertData(
                table: "Usuarios",
-               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechaNacimiento", "EstadoUsuarioId" },
+               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechaNacimiento", "EstadoUsuarioId", "Token" },
                values: new object[] {  "Pablo",
                                         "Morel",
                                         "pmorel@yopmail.com",
@@ -367,10 +370,11 @@ namespace Infraestructure.Migrations
                                         "/user/img/pablomorel.jpg" ,
                                         "Reconquista 2500" ,
                                         "1980/10/01",
-                                        "2"});
+                                        "2",
+                                        "b2oFxBTAvHcZ1sp3iQXOqI6rP9eN7D5w" });
             migrationBuilder.InsertData(
                table: "Usuarios",
-               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechaNacimiento", "EstadoUsuarioId" },
+               columns: new[] { "Nombre", "Apellido", "CorreoElectronico", "Contrasena", "FotoPerfil", "Domicilio", "FechaNacimiento", "EstadoUsuarioId", "Token" },
                values: new object[] {  "Marcelo",
                                         "Zona",
                                         "mzona@yopmail.com",
@@ -378,7 +382,8 @@ namespace Infraestructure.Migrations
                                         "/user/img/marcelozona.jpg" ,
                                         "Paseo Colon 2500" ,
                                         "1980/10/01",
-                                        "2"});
+                                        "2",
+                                        "G1jRkL2wPvOuI6NqQs9yE3TcXfA4bD5o" });
 
 
             migrationBuilder.InsertData(

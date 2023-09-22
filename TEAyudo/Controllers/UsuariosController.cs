@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using TEAyudo.DTO;
+using Tools;
 
 namespace TEAyudo.Controllers
 {
@@ -51,11 +52,14 @@ namespace TEAyudo.Controllers
                 FotoPerfil = usuarioDTO.FotoPerfil,
                 Domicilio = usuarioDTO.Domicilio,
                 FechaNacimiento = usuarioDTO.FechaNacimiento,
-                EstadoUsuarioId = usuarioDTO.EstadoUsuarioId
+                EstadoUsuarioId = usuarioDTO.EstadoUsuarioId,
+                Token = Token.GenerarToken()
             };
+
 
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
+            await VerificacionRegistro.EnviarToken(usuario);
 
             return CreatedAtAction("GetUsuario", new { id = usuario.UsuarioId }, usuario);
         }
@@ -79,7 +83,8 @@ namespace TEAyudo.Controllers
                 FotoPerfil = usuarioDTO.FotoPerfil,
                 Domicilio = usuarioDTO.Domicilio,
                 FechaNacimiento = usuarioDTO.FechaNacimiento,
-                EstadoUsuarioId = usuarioDTO.EstadoUsuarioId
+                EstadoUsuarioId = usuarioDTO.EstadoUsuarioId,
+                Token = usuarioDTO.Token
             };
 
             _context.Entry(usuario).State = EntityState.Modified;
@@ -102,6 +107,22 @@ namespace TEAyudo.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUsuario(int id)
+        {
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            _context.Usuarios.Remove(usuario);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
 
         private bool UsuarioExists(int id)
         {
