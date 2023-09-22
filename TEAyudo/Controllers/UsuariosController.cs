@@ -108,6 +108,22 @@ namespace TEAyudo.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUsuario(int id)
+        {
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            _context.Usuarios.Remove(usuario);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+
         private bool UsuarioExists(int id)
         {
             return _context.Usuarios.Any(e => e.UsuarioId == id);
